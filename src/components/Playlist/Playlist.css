@@ -1,0 +1,12 @@
+.playlist-table-wrapper {
+  /* width: 50%; */
+  height: 700px;
+  overflow-y: scroll;
+}
+.playlist-table {
+  
+}
+
+.row-selected {
+  background-color: lightgray;
+}
