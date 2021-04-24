@@ -4,6 +4,7 @@ import useAuth from '../useAuth'
 import SpotifyWebApi from "spotify-web-api-node"
 import Player from '../Player/Player'
 import Playlist from '../Playlist/Playlist'
+import Donut from '../Donut'
 import './Genre.css'
 
 const spotifyApi = new SpotifyWebApi({
@@ -13,7 +14,7 @@ export default function Genre({ code }) {
   const accessToken = useAuth(code)
 
   const [topGenres, setTopGenres] = useState([])
-  const [currClickedGenre, setCurrClickedGenre] = useState("")
+  const [clickedGenre, setClickedGenre] = useState("")
   const [currPlaylist, setCurrPlaylist] = useState([])
   const [currUris, setCurrUris] = useState([])
   const [currPlayingTrack, setCurrPlayingTrack] = useState([])
@@ -161,7 +162,7 @@ export default function Genre({ code }) {
   }
 
   const clickAGenre = (genre) => {
-    setCurrClickedGenre(genre)
+    setClickedGenre(genre)
     getTopTracksFromGenre(genre)
   }
 
@@ -170,20 +171,27 @@ export default function Genre({ code }) {
 
       <a className="btn btn-success btn-lg" onClick={() => clickAGenre("k-pop")}>K-Pop</a>
 
-      {currClickedGenre !== "" ? (
+      {clickedGenre !== "" ? (
         <>
           <Row>
             <Col>
               etc
+            </Col>
+
+            <Col xs={5}>
+              {/* <img src={currPlayingTrackInfo.albumUrl} /> */}
+
               {/* {Object.keys(topGenres).map((keyName) => (
                 <li>
                   <span>{keyName}: {topGenres[keyName]}</span>
                 </li>
               ))} */}
-            </Col>
 
-            <Col xs={5}>
-              {/* <img src={currPlayingTrackInfo.albumUrl} /> */}
+              <Donut
+                topGenres={topGenres}
+                clickedGenre={clickedGenre}
+                setClickedGenre={setClickedGenre}
+              />
             </Col>
 
             <Col>
