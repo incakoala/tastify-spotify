@@ -222,7 +222,7 @@
 
 
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import useAuth from '../useAuth'
 import SpotifyWebApi from "spotify-web-api-node"
@@ -285,10 +285,19 @@ export default function Genre({ code }) {
             return result
           }, {})
       })
-      // .then((gg) => {
-      //   gg.sort((a, b) => 
-      //   (a.color > b.color) ? 1 : (a.color === b.color) ? ((a.size > b.size) ? 1 : -1) : -1 )
-      // })
+      .then((top) => {
+        return Object.keys(top).slice(0, Object.keys(top).length / 4)
+          .reduce((result, g) => {
+            result.push({
+              x: g,
+              y: top[g]
+            })
+            return result
+          }, [])
+          .sort((a, b) => {
+            return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
+          })
+      })
       .then((a) => {
         // console.log(a)
         setTopGenres(a)
@@ -399,7 +408,7 @@ export default function Genre({ code }) {
   // }
 
   return (
-    <Container>
+    <Fragment>
 
       {/* <a className="btn btn-success btn-lg" onClick={() => clickAGenre("k-pop")}>K-Pop</a> */}
       {clickedGenre === {} ? (
@@ -407,6 +416,7 @@ export default function Genre({ code }) {
 
           <Donut
             topGenres={topGenres}
+            clickedGenre={clickedGenre}
             setClickedGenre={setClickedGenre}
             setCurrPlaylist={setCurrPlaylist}
             setCurrUris={setCurrUris}
@@ -433,6 +443,7 @@ export default function Genre({ code }) {
 
               <Donut
                 topGenres={topGenres}
+                clickedGenre={clickedGenre}
                 setClickedGenre={setClickedGenre}
                 setCurrPlaylist={setCurrPlaylist}
                 setCurrUris={setCurrUris}
@@ -481,6 +492,6 @@ export default function Genre({ code }) {
         setCurrPlayingTrackInfo={setCurrPlayingTrackInfo}
       />
 
-    </Container>
+    </Fragment>
   )
 }

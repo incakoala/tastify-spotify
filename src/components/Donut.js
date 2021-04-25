@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VictoryPie, VictoryChart } from 'victory';
+import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory';
 
 // const data = [
 //   { x: "Cats", y: 35 },
@@ -8,25 +8,32 @@ import { VictoryPie, VictoryChart } from 'victory';
 //   { x: "Birds", y: 55 }
 // ];
 
-const data = ((topGenres) => {
-  return Object.keys(topGenres).slice(0, 10)
-    .reduce((result, g) => {
-      result.push({
-        x: g,
-        y: topGenres[g]
-      })
-      return result
-    }, [])
-    // .sort((a, b) => {
-    //   return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
-    // })
-})
-
-// const sort = ((data) => {
-//   return data.sort((a, b) => {
-//     return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
-//   })
+// const data = ((topGenres) => {
+//   return Object.keys(topGenres).slice(0, 10)
+//     .reduce((result, g) => {
+//       result.push({
+//         x: g,
+//         y: topGenres[g]
+//       })
+//       return result
+//     }, [])
+//     .sort((a, b) => {
+//       return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
+//     })
 // })
+
+const showLabels = ((datum, topGenres) => {
+  const len = topGenres.length
+  const moreThan3 = Object.values(topGenres[len - 1])[0] === datum ||
+    Object.values(topGenres[len - 2])[0] === datum ||
+    Object.values(topGenres[len - 3])[0] === datum
+
+  if (len > 3) {
+    return moreThan3
+  } else if (len <= 3) {
+    return true
+  }
+})
 
 export default class Donut extends React.Component {
   render() {
@@ -35,45 +42,79 @@ export default class Donut extends React.Component {
         {/* {console.log(data(this.props.topGenres))} */}
 
         <VictoryPie
-          data={data(this.props.topGenres)}
-          // events={[
-          //   {
-          //     target: 'data',
-          //     eventHandlers: {
-          //       onPressIn: () => {
-          //         return [
-          //           {
-          //             target: 'data',
-          //             mutation: dataProps => {
-          //               console.log('item selected is', dataProps.index)
-          //               return {}
-          //             }
-          //           }
-          //         ]
-          //       },
-          //       onPressOut: () => {
-          //       }
-          //     }
-          //   }
-          // ]}
+          data={this.props.topGenres}
+          colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
+          padAngle={({ datum }) => datum.y}
+          innerRadius={100}
+          // labelRadius={({ innerRadius }) => innerRadius + 20}
+          // labels={({ datum }) => showLabels(datum.x, this.props.topGenres) === true ? datum.x : null}
+          labelComponent={
+            <VictoryTooltip
+              // cornerRadius={20}
+              // pointerLength={5}
+              flyoutStyle={{
+                fill: "#AF7C40",
+                stroke: "none"
+              }}
+            />
+          }
+          style={{
+            data: {
+              // fillOpacity: 0.9, stroke: "#AF7C40", strokeWidth: 2
+            },
+            labels: {
+              fontSize: 10,
+              fontWeight: "bold",
+              fill: "white"
+            }
+          }}
           events={[
             {
               target: "data",
               eventHandlers: {
                 onClick: () => {
-                  return [{
-                    target: "labels",
-                    mutation: (props) => {
-                      console.log('item selected is',
-                        Object.keys(this.props.topGenres)[props.index], Object.values(this.props.topGenres)[props.index])
-                      this.props.setClickedGenre({
-                        genre: Object.keys(this.props.topGenres)[props.index],
-                        numSongs: Object.values(this.props.topGenres)[props.index]
-                      })
-                      return {}
+                  return [
+                    {
+                      target: ["data"],
+                      mutation: (props) => {
+                        console.log(props)
+                        console.log('item selected is',
+                          Object.values(this.props.topGenres)[props.index].x, Object.values(this.props.topGenres)[props.index].y)
+
+                        this.props.setClickedGenre({
+                          genre: Object.values(this.props.topGenres)[props.index].x,
+                          numSongs: Object.values(this.props.topGenres)[props.index].y
+                        })
+                        // return {
+                        //   style: { fill: "#AF7C40" }
+                        // }
+
+                        const fill = props.style && props.style.fill;
+                        return fill === "#AF7C40" ? null : { style: { fill: "#AF7C40" } }
+
+                        // console.log(this.props.clickedGenre.genre, Object.values(this.props.topGenres)[props.index].x)
+
+                        // const thisSlice = this.props.clickedGenre.genre === Object.values(this.props.topGenres)[props.index].x ? true : false
+
+                        // return thisSlice ? { style: { fill: "#AF7C40" } } : null
+                      }
+                    }, {
+                      target: "labels",
+                      mutation: () => ({ active: true })
                     }
-                  }];
-                }
+                  ];
+                },
+                // onMouseOut: () => {
+                //   return [
+                //     {
+                //       target: "data",
+                //       mutation: () => { }
+                //     }, {
+                //       target: "labels",
+                //       mutation: () => ({ active: false })
+                //     }
+                //   ];
+                // }
               }
             }
           ]}
