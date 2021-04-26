@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Login from "./components/Login/Login";
-import Dashboard from "./components/Genre/Genre";
+import Login from "./components/Login";
+import Dashboard from "./components/Genre";
 
 const code = new URLSearchParams(window.location.search).get('code');
 

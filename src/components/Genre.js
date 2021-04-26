@@ -224,12 +224,13 @@
 
 import React, { useState, useEffect, Fragment } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import useAuth from '../useAuth'
+import useAuth from './useAuth'
 import SpotifyWebApi from "spotify-web-api-node"
-import Player from '../Player/Player'
-import Playlist from '../Playlist/Playlist'
-import Donut from '../Donut'
+import Player from './Player'
+import Playlist from './Playlist'
+import Donut from './Donut'
 import './Genre.css'
+import Vinyl from "./vinyl.svg"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "b2d89a8ed2a5494196384e30483c4706"
@@ -252,7 +253,8 @@ export default function Genre({ code }) {
   }, [accessToken])
 
   useEffect(() => {
-    if (clickedGenre !== {}) getTopTracksFromGenre(clickedGenre.genre)
+    if (clickedGenre !== {} || clickedGenre !== "") getTopTracksFromGenre(clickedGenre.genre)
+
   }, [clickedGenre])
 
   useEffect(() => {
@@ -411,35 +413,25 @@ export default function Genre({ code }) {
     <Fragment>
 
       {/* <a className="btn btn-success btn-lg" onClick={() => clickAGenre("k-pop")}>K-Pop</a> */}
-      {clickedGenre === {} ? (
-        <>
 
-          <Donut
-            topGenres={topGenres}
-            clickedGenre={clickedGenre}
-            setClickedGenre={setClickedGenre}
-            setCurrPlaylist={setCurrPlaylist}
-            setCurrUris={setCurrUris}
-          />
+      <div>
+        {/* {getTopTracksFromGenre(clickedGenre.genre)} */}
+        <Row>
+          <Col>
+            {clickedGenre.genre}
+          </Col>
 
+          <Col xs={5}>
+            {/* <img src={currPlayingTrackInfo.albumUrl} /> */}
 
-        </>
-      ) : (
-        <div>
-          {/* {getTopTracksFromGenre(clickedGenre.genre)} */}
-          <Row>
-            <Col>
-              {clickedGenre.genre}
-            </Col>
-
-            <Col xs={5}>
-              {/* <img src={currPlayingTrackInfo.albumUrl} /> */}
-
-              {/* {Object.keys(topGenres).map((keyName) => (
+            {/* {Object.keys(topGenres).map((keyName) => (
                 <li>
                   <span>{keyName}: {topGenres[keyName]}</span>
                 </li>
               ))} */}
+
+            <div style={{ position: 'relative', left: 0, top: 0 }}>
+              <img src={Vinyl} />
 
               <Donut
                 topGenres={topGenres}
@@ -449,19 +441,21 @@ export default function Genre({ code }) {
                 setCurrUris={setCurrUris}
               />
 
-            </Col>
+            </div>
 
-            <Col>
-              <div>
-                <Playlist
-                  currPlaylist={currPlaylist}
-                  currPlayingTrack={currPlayingTrack}
-                />
-              </div>
-            </Col>
-          </Row>
+          </Col>
 
-          {/* <div>
+          <Col>
+            <div>
+              <Playlist
+                currPlaylist={currPlaylist}
+                currPlayingTrack={currPlayingTrack}
+              />
+            </div>
+          </Col>
+        </Row>
+
+        {/* <div>
             {currPlaylist.length > 0 ?
               [...Array(3)].map((e, i) => (
                 <div>
@@ -479,8 +473,8 @@ export default function Genre({ code }) {
 
               : null}
           </div> */}
-        </div>
-      )}
+      </div>
+
 
 
       <Player

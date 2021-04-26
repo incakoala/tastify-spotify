@@ -35,37 +35,109 @@ const showLabels = ((datum, topGenres) => {
   }
 })
 
-export default class Donut extends React.Component {
+class CustomLabel extends React.Component {
+  static defaultEvents = VictoryTooltip.defaultEvents;
   render() {
     return (
+      <g>
+        <VictoryLabel {...this.props} />
+        <VictoryTooltip
+          {...this.props}
+          x={0} y={50}
+          text={`# ${this.props.text}`}
+          orientation="top"
+          pointerLength={0}
+          cornerRadius={50}
+          width={100}
+          height={100}
+          flyoutStyle={{ fill: "black" }}
+        />
+      </g>
+    );
+  }
+}
+
+export default class Donut extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      externalMutations: undefined,
+      lastClicked: undefined
+    };
+  }
+
+  removeMutation() {
+    this.setState({
+      externalMutations: undefined
+    });
+  }
+
+  // [this.lastClicked]
+
+  clearClicks() {
+    this.setState({
+      externalMutations: [
+        {
+          childName: "Bar-1",
+          target: ["data"],
+          eventKey: [this.state.lastClicked],
+          mutation: () => ({ style: undefined }),
+          callback: this.removeMutation.bind(this)
+        }
+      ]
+    })
+  }
+
+  render() {
+    const buttonStyle = {
+      backgroundColor: "black",
+      color: "white",
+      padding: "10px",
+      marginTop: "10px"
+    }
+    return (
       <>
-        {/* {console.log(data(this.props.topGenres))} */}
+        {/* <button
+          onClick={this.clearClicks.bind(this)}
+          style={buttonStyle}
+        >
+          Reset
+        </button> */}
+
+        {/* {this.clearClicks.bind(this)} */}
 
         <VictoryPie
+          externalEventMutations={this.state.externalMutations}
           data={this.props.topGenres}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
           padAngle={({ datum }) => datum.y}
           innerRadius={100}
           // labelRadius={({ innerRadius }) => innerRadius + 20}
+          labelRadius={({ innerRadius }) => innerRadius + 52}
           // labels={({ datum }) => showLabels(datum.x, this.props.topGenres) === true ? datum.x : null}
-          labelComponent={
-            <VictoryTooltip
-              // cornerRadius={20}
-              // pointerLength={5}
-              flyoutStyle={{
-                fill: "#AF7C40",
-                stroke: "none"
-              }}
-            />
-          }
+          labels={({ datum }) => datum.x.length > 12 ? `${datum.x.slice(0, 12)}...` : datum.x}
+          labelPlacement={() => "parallel"}
+
+          // labelComponent={<CustomLabel/>}
+
+          // labelComponent={
+          //   <VictoryTooltip
+          //     // cornerRadius={20}
+          //     // pointerLength={5}
+          //     flyoutStyle={{
+          //       fill: "#AF7C40",
+          //       stroke: "none"
+          //     }}
+          //   />
+          // }
           style={{
             data: {
               // fillOpacity: 0.9, stroke: "#AF7C40", strokeWidth: 2
             },
             labels: {
-              fontSize: 10,
-              fontWeight: "bold",
-              fill: "white"
+              // fontSize: 10,
+              // fontWeight: "bold",
+              // fill: "black"
             }
           }}
           events={[
@@ -73,24 +145,39 @@ export default class Donut extends React.Component {
               target: "data",
               eventHandlers: {
                 onClick: () => {
+                  this.clearClicks()
+
+                  console.log(this.props.clickedGenre)
+
+
                   return [
                     {
                       target: ["data"],
                       mutation: (props) => {
-                        console.log(props)
+                        // console.log(props)
                         console.log('item selected is',
                           Object.values(this.props.topGenres)[props.index].x, Object.values(this.props.topGenres)[props.index].y)
 
-                        this.props.setClickedGenre({
-                          genre: Object.values(this.props.topGenres)[props.index].x,
-                          numSongs: Object.values(this.props.topGenres)[props.index].y
-                        })
-                        // return {
-                        //   style: { fill: "#AF7C40" }
-                        // }
 
-                        const fill = props.style && props.style.fill;
-                        return fill === "#AF7C40" ? null : { style: { fill: "#AF7C40" } }
+                        if (this.props.clickedGenre !== "") {
+                          this.props.setClickedGenre({
+                            genre: Object.values(this.props.topGenres)[props.index].x,
+                            numSongs: Object.values(this.props.topGenres)[props.index].y
+                          })
+                        }
+
+                        this.setState({
+                          lastClicked: props.index
+                        });
+
+                        // console.log(this.state.lastClicked)
+
+                        return {
+                          style: { fill: "#AF7C40" }
+                        }
+
+                        // const fill = props.style && props.style.fill;
+                        // return fill === "#AF7C40" ? null : { style: { fill: "#AF7C40" } }
 
                         // console.log(this.props.clickedGenre.genre, Object.values(this.props.topGenres)[props.index].x)
 
@@ -98,23 +185,32 @@ export default class Donut extends React.Component {
 
                         // return thisSlice ? { style: { fill: "#AF7C40" } } : null
                       }
-                    }, {
+                    },
+                    {
                       target: "labels",
-                      mutation: () => ({ active: true })
+                      mutation: () => {
+                        // active: true 
+                        return { style: { fill: "#AF7C40" } }
+                      }
+                    },
+                  ];
+                },
+                onmouseover: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: () => { return { style: { fill: "#AF7C40" } } }
                     }
                   ];
                 },
-                // onMouseOut: () => {
-                //   return [
-                //     {
-                //       target: "data",
-                //       mutation: () => { }
-                //     }, {
-                //       target: "labels",
-                //       mutation: () => ({ active: false })
-                //     }
-                //   ];
-                // }
+                onMouseOut: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: () => { }
+                    },
+                  ];
+                }
               }
             }
           ]}
