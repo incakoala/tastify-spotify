@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory';
+import './Donut.css'
+import Vinyl from "./vinyl.svg"
 
 // const data = [
 //   { x: "Cats", y: 35 },
@@ -83,6 +85,13 @@ export default class Donut extends React.Component {
           eventKey: [this.state.lastClicked],
           mutation: () => ({ style: undefined }),
           callback: this.removeMutation.bind(this)
+        },
+        {
+          childName: "Bar-1",
+          target: ["labels"],
+          eventKey: [this.state.lastClicked],
+          mutation: () => ({ style: undefined }),
+          callback: this.removeMutation.bind(this)
         }
       ]
     })
@@ -96,7 +105,7 @@ export default class Donut extends React.Component {
       marginTop: "10px"
     }
     return (
-      <>
+      <div className="player-wrapper">
         {/* <button
           onClick={this.clearClicks.bind(this)}
           style={buttonStyle}
@@ -106,12 +115,14 @@ export default class Donut extends React.Component {
 
         {/* {this.clearClicks.bind(this)} */}
 
-        <VictoryPie
+
+
+        <VictoryPie className="donut"
           externalEventMutations={this.state.externalMutations}
           data={this.props.topGenres}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
           padAngle={({ datum }) => datum.y}
-          innerRadius={100}
+          innerRadius={120}
           // labelRadius={({ innerRadius }) => innerRadius + 20}
           labelRadius={({ innerRadius }) => innerRadius + 52}
           // labels={({ datum }) => showLabels(datum.x, this.props.topGenres) === true ? datum.x : null}
@@ -144,8 +155,25 @@ export default class Donut extends React.Component {
             {
               target: "data",
               eventHandlers: {
+                // onMouseOver: () => {
+                //   return [
+                //     {
+                //       target: "data",
+                //       mutation: () => { return { style: { fill: "#AF7C40" } } }
+                //     }
+                //   ];
+                // },
+                // onMouseOut: () => {
+                //   return [
+                //     {
+                //       target: "data",
+                //       mutation: () => { }
+                //     },
+                //   ];
+                // },
                 onClick: () => {
                   this.clearClicks()
+
 
                   console.log(this.props.clickedGenre)
 
@@ -194,28 +222,18 @@ export default class Donut extends React.Component {
                       }
                     },
                   ];
-                },
-                onmouseover: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: () => { return { style: { fill: "#AF7C40" } } }
-                    }
-                  ];
-                },
-                onMouseOut: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: () => { }
-                    },
-                  ];
                 }
               }
             }
           ]}
         />
-      </>
+
+        <div className="vinyl-wrapper">
+          <img src={this.props.currPlayingTrackInfo.albumUrl} className="album-cover" />
+          <img src={Vinyl} className="vinyl" />
+        </div>
+      </div>
+
     )
   }
 }

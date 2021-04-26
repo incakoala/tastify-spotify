@@ -1,0 +1,49 @@
+.player-wrapper {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.donut {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.vinyl {
+  position: absolute;
+  top:50%; 
+  left: 50%;
+  max-width: 55%;
+  transform: translate(41%, -141%);
+
+}
+
+.vinyl-wrapper {
+  position: relative;
+  top: 0;
+  left: 0;
+  /* animation:spin 4s linear infinite; */
+}
+
+.album-cover {
+  position: absolute;
+  top:50%; 
+  left: 50%;
+  max-width: 20%;
+  border-radius: 50%;
+  transform: translate(-50%, -437%);
+
+}
+
+/* @keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-50%, -437%);
+  }
+} */
+
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

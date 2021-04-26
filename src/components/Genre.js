@@ -430,18 +430,14 @@ export default function Genre({ code }) {
                 </li>
               ))} */}
 
-            <div style={{ position: 'relative', left: 0, top: 0 }}>
-              <img src={Vinyl} />
-
-              <Donut
-                topGenres={topGenres}
-                clickedGenre={clickedGenre}
-                setClickedGenre={setClickedGenre}
-                setCurrPlaylist={setCurrPlaylist}
-                setCurrUris={setCurrUris}
-              />
-
-            </div>
+            <Donut
+              topGenres={topGenres}
+              clickedGenre={clickedGenre}
+              setClickedGenre={setClickedGenre}
+              setCurrPlaylist={setCurrPlaylist}
+              setCurrUris={setCurrUris}
+              currPlayingTrackInfo={currPlayingTrackInfo}
+            />
 
           </Col>
 
