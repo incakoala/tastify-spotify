@@ -36,3 +36,54 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: #000000;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.navbar {
+  background-color: #AF7C40;
+  height: 90px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-expand {
+  border-bottom-left-radius: 2%30px;
+  border-bottom-right-radius: 2%40px;
+}
+
+.navbar-link {
+  color:black;
+  font-size: 25px;
+  font-weight: bold;
+  height: 100%;
+  padding-top: 27px;
+  /* padding-bottom: 15px; */
+}
+
+.navbar-link:hover {
+  color:white;
+  background-color: black;
+}
+
+.navbar-link:focus{
+  color:white;
+  background-color: black;
+  outline: 0;
+}
+
+.navbar-brand {
+
+}
+.navbar-brand-name {
+  color:black;
+  font-size: 50px;
+  font-family: 'Staatliches';
+}
+.navbar-brand-name:hover{
+  cursor: pointer;
+}

@@ -17,7 +17,7 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
   return (
     <>
       <div className='playlist-table-wrapper'>
-        <Table className='playlist-table'>
+        <Table responsive borderless className='playlist-table'>
           <tbody>
             {currPlaylist.length > 0 ?
               [...Array(currPlaylist.length)].map((e, i) => (

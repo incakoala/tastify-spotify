@@ -235,8 +235,8 @@ import Vinyl from "./vinyl.svg"
 const spotifyApi = new SpotifyWebApi({
   clientId: "b2d89a8ed2a5494196384e30483c4706"
 })
-export default function Genre({ code }) {
-  const accessToken = useAuth(code)
+export default function Genre({ accessToken, code }) {
+  // const accessToken = useAuth(code)
 
   const [topGenres, setTopGenres] = useState([])
   const [clickedGenre, setClickedGenre] = useState({})
@@ -421,7 +421,7 @@ export default function Genre({ code }) {
             {clickedGenre.genre}
           </Col>
 
-          <Col xs={5}>
+          <Col xs={5} className="donut-wrapper">
             {/* <img src={currPlayingTrackInfo.albumUrl} /> */}
 
             {/* {Object.keys(topGenres).map((keyName) => (
@@ -436,12 +436,13 @@ export default function Genre({ code }) {
               setClickedGenre={setClickedGenre}
               setCurrPlaylist={setCurrPlaylist}
               setCurrUris={setCurrUris}
+              currPlayingTrack={currPlayingTrack}
               currPlayingTrackInfo={currPlayingTrackInfo}
             />
 
           </Col>
 
-          <Col>
+          <Col className="playlist-wrapper">
             <div>
               <Playlist
                 currPlaylist={currPlaylist}

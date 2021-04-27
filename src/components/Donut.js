@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory';
+import { VictoryPie, VictoryLabel, VictoryTooltip, VictoryContainer } from 'victory';
 import './Donut.css'
 import Vinyl from "./vinyl.svg"
 
@@ -106,27 +106,18 @@ export default class Donut extends React.Component {
     }
     return (
       <div className="player-wrapper">
-        {/* <button
-          onClick={this.clearClicks.bind(this)}
-          style={buttonStyle}
-        >
-          Reset
-        </button> */}
-
-        {/* {this.clearClicks.bind(this)} */}
-
-
-
         <VictoryPie className="donut"
+          labelComponent={<VictoryLabel renderInPortal />}
+          // padding={{ top: 100 }}
           externalEventMutations={this.state.externalMutations}
           data={this.props.topGenres}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
           padAngle={({ datum }) => datum.y}
           innerRadius={120}
           // labelRadius={({ innerRadius }) => innerRadius + 20}
-          labelRadius={({ innerRadius }) => innerRadius + 52}
+          labelRadius={({ innerRadius }) => innerRadius + 35}
           // labels={({ datum }) => showLabels(datum.x, this.props.topGenres) === true ? datum.x : null}
-          labels={({ datum }) => datum.x.length > 12 ? `${datum.x.slice(0, 12)}...` : datum.x}
+          labels={({ datum }) => datum.x.length > 10 ? `${datum.x.slice(0, 10)}..` : datum.x}
           labelPlacement={() => "parallel"}
 
           // labelComponent={<CustomLabel/>}
@@ -142,41 +133,51 @@ export default class Donut extends React.Component {
           //   />
           // }
           style={{
+            // parent: {
+            //   overflow: "visible"
+            // }, 
             data: {
               // fillOpacity: 0.9, stroke: "#AF7C40", strokeWidth: 2
             },
             labels: {
-              // fontSize: 10,
+              fontSize: 10.5,
               // fontWeight: "bold",
-              // fill: "black"
+              fill: "white"
             }
+
           }}
           events={[
             {
               target: "data",
               eventHandlers: {
-                // onMouseOver: () => {
-                //   return [
-                //     {
-                //       target: "data",
-                //       mutation: () => { return { style: { fill: "#AF7C40" } } }
-                //     }
-                //   ];
-                // },
-                // onMouseOut: () => {
-                //   return [
-                //     {
-                //       target: "data",
-                //       mutation: () => { }
-                //     },
-                //   ];
-                // },
+                onMouseOver: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: () => { return { style: { fill: "#AF7C40" } } }
+                    },
+                    {
+                      target: "labels",
+                      mutation: () => { return { style: { fontSize: 10.5, fill: "#AF7C40" } } }
+                    }
+                  ];
+                },
+                onMouseOut: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: () => { }
+                    },
+                    {
+                      target: "labels",
+                      mutation: () => { }
+                    }
+                  ];
+                },
                 onClick: () => {
                   this.clearClicks()
 
-
                   console.log(this.props.clickedGenre)
-
 
                   return [
                     {
@@ -218,7 +219,12 @@ export default class Donut extends React.Component {
                       target: "labels",
                       mutation: () => {
                         // active: true 
-                        return { style: { fill: "#AF7C40" } }
+                        return {
+                          style: {
+                            fontSize: 10.5,
+                            fill: "#AF7C40"
+                          }
+                        }
                       }
                     },
                   ];
@@ -228,10 +234,49 @@ export default class Donut extends React.Component {
           ]}
         />
 
-        <div className="vinyl-wrapper">
-          <img src={this.props.currPlayingTrackInfo.albumUrl} className="album-cover" />
-          <img src={Vinyl} className="vinyl" />
-        </div>
+        {/* {console.log(this.props.currPlayingTrack)} */}
+
+        {typeof (this.props.currPlayingTrack) === 'string' ?
+          <div className="vinyl-wrapper" id="spinning">
+            {/* <img src={this.props.currPlayingTrackInfo.albumUrl} className="album-cover" /> */}
+            {/* <img src={Vinyl} className="vinyl" /> */}
+            <div style={{
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '45%',
+              borderRadius: '50%',
+              backgroundPosition: '50% center',
+              backgroundImage: `url(${this.props.currPlayingTrackInfo.albumUrl})`
+            }}>
+              <img src={Vinyl} className="vinyl" />
+            </div>
+          </div>
+          :
+          <div className="vinyl-wrapper">
+
+            <div style={{
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '45%',
+              borderRadius: '50%',
+              backgroundPosition: '50% center',
+              backgroundImage: `url(${this.props.currPlayingTrackInfo.albumUrl})`
+            }}>
+              <img src={Vinyl} className="vinyl" />
+            </div>
+          </div>
+        }
+
+        {/* <div className="vinyl-wrapper" id="spinning">
+          <div style={{
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '45%',
+            borderRadius: '50%',
+            backgroundPosition: '50% center',
+            backgroundImage: `url(${this.props.currPlayingTrackInfo.albumUrl})`
+          }}>
+            <img src={Vinyl} className="vinyl" />
+          </div>
+        </div> */}
+
       </div>
 
     )

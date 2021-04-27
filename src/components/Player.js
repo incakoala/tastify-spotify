@@ -33,6 +33,7 @@ export default function Player({
   if (!accessToken) return null
   return (
     <>
+    {/* {currPlayingTrack} */}
       <SpotifyPlayer
         token={accessToken}
         showSaveIcon
@@ -40,6 +41,9 @@ export default function Player({
           if (state.isPlaying) {
             setCurrPlayingTrack(state.track.uri)
             setTrackInfo(state.track.uri, trackUris)
+          }
+          if (!state.isPlaying) {
+            setCurrPlayingTrack([])
           }
         }}
         // callback={state => { if (!state.isPlaying) setPlay(false) }}

@@ -1,12 +1,16 @@
 .playlist-table-wrapper {
   /* width: 50%; */
-  height: 700px;
+  width:400px;
+  height:450px;
   overflow-y: scroll;
+  border-radius: 30px;
+  background: #FFB55D;
+
 }
 .playlist-table {
   
 }
 
 .row-selected {
-  background-color: lightgray;
+  background-color: #AF7C40;
 }

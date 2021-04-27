@@ -6,5 +6,15 @@
 .donut {
   position: absolute;
   top: 100px;
-  left: 80px;
+  left: 80px; 
+}
+
+.playlist-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-wrapper {
+  max-width: 50%;
 }
