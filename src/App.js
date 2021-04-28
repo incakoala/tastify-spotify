@@ -43,7 +43,13 @@ export default function App() {
           code={code}
           setCode={setCode}
         />
-        : <Login />
+        :
+        <>
+
+          <div className='background-img'>
+            <Login />
+          </div>
+        </>
       }
 
       {showGenre === true ?

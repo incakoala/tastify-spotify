@@ -24,6 +24,8 @@ import Vinyl from "./vinyl.svg"
 //     })
 // })
 
+
+
 const showLabels = ((datum, topGenres) => {
   const len = topGenres.length
   const moreThan3 = Object.values(topGenres[len - 1])[0] === datum ||
@@ -104,13 +106,14 @@ export default class Donut extends React.Component {
       padding: "10px",
       marginTop: "10px"
     }
+    const numberOfItems = this.props.numberOfItems
     return (
       <div className="player-wrapper">
         <VictoryPie className="donut"
           labelComponent={<VictoryLabel renderInPortal />}
           // padding={{ top: 100 }}
           externalEventMutations={this.state.externalMutations}
-          data={this.props.topGenres}
+          data={this.props.topGenres.slice(0, numberOfItems)}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
           padAngle={({ datum }) => datum.y}
           innerRadius={120}
@@ -140,7 +143,7 @@ export default class Donut extends React.Component {
               // fillOpacity: 0.9, stroke: "#AF7C40", strokeWidth: 2
             },
             labels: {
-              fontSize: 10.5,
+              fontSize: 14,
               // fontWeight: "bold",
               fill: "white"
             }
@@ -158,7 +161,7 @@ export default class Donut extends React.Component {
                     },
                     {
                       target: "labels",
-                      mutation: () => { return { style: { fontSize: 10.5, fill: "#AF7C40" } } }
+                      mutation: () => { return { style: { fontSize: 15, fill: "#AF7C40" } } }
                     }
                   ];
                 },
@@ -215,7 +218,7 @@ export default class Donut extends React.Component {
                         // active: true 
                         return {
                           style: {
-                            fontSize: 10.5,
+                            fontSize: 15,
                             fill: "#AF7C40"
                           }
                         }

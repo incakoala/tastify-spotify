@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { Container, Row, Col, Navbar } from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Dropdown, DropdownButton, SplitButton } from 'react-bootstrap'
 import SpotifyWebApi from "spotify-web-api-node"
 import Player from './Player'
 import Playlist from './Playlist'
@@ -16,6 +16,7 @@ export default function Genre({ accessToken, code }) {
   const [currPlayingTrack, setCurrPlayingTrack] = useState([])
   const [currPlayingTrackInfo, setCurrPlayingTrackInfo] = useState([])
   const [totalTopSongs, setTotalTopSongs] = useState(0)
+  const [numberOfItems, setNumberOfItems] = useState(10)
 
   useEffect(() => {
     if (!accessToken) return
@@ -28,18 +29,33 @@ export default function Genre({ accessToken, code }) {
 
   }, [clickedGenre])
 
+  const getGenres = (list) => {
+    return list
+      .map((at) => at)
+      .reduce(async (result, a) => {
+        const temp = await spotifyApi.getArtist(a.id)
+
+        if (temp) {
+          (await result).push(temp.body.genres)
+        }
+        return await result
+
+      }, [])
+  }
+
   useEffect(() => {
     if (!accessToken) return
 
     spotifyApi
-      .getMyTopArtists({ limit: 50, time_range: "long_term" })
-      .catch((err) => {
-        console.log(err)
-      })
+      // .getMyTopArtists({ limit: 50, time_range: "long_term" })
+      .getMyTopTracks({ limit: 50, time_range: "long_term" })
       .then((data) => {
-        return data.body.items.map((artist) => {
-          return artist.genres
+        return data.body.items.map((track) => {
+          return track.artists[0]
         })
+      })
+      .then(async (artist) => {
+        return await getGenres(artist)
       })
       .then((genres) => {
         return [].concat.apply([], genres)
@@ -58,7 +74,7 @@ export default function Genre({ accessToken, code }) {
       })
       .then((top) => {
         setTotalTopSongs(Object.keys(top).length)
-        return Object.keys(top).slice(0, Object.keys(top).length / 3)
+        return Object.keys(top).slice(0, Object.keys(top).length)
           .reduce((result, g) => {
             result.push({
               x: g,
@@ -67,10 +83,13 @@ export default function Genre({ accessToken, code }) {
             return result
           }, [])
           .sort((a, b) => {
-            return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
+            // return (a.y > b.y) ? 1 : (a.y === b.y) ? ((a.y > b.y) ? 1 : -1) : -1
+            return (a.y > b.y) ? -1 : (a.y === b.y) ? ((a.y > b.y) ? -1 : 1) : 1
+
           })
       })
       .then((a) => {
+        // console.log(a.slice(a.length-20, a.length))
         setTopGenres(a)
       })
       .catch((err) => {
@@ -130,7 +149,7 @@ export default function Genre({ accessToken, code }) {
         return await getArtistData(artistsAndTracksList)
       })
       .then((updatedArtistsAndTracksList) => {
-        console.log(updatedArtistsAndTracksList)
+        // console.log(updatedArtistsAndTracksList)
         return updatedArtistsAndTracksList
           .map((item) => item)
           .reduce((result, a) => {
@@ -168,11 +187,12 @@ export default function Genre({ accessToken, code }) {
           <Col className="text-wrapper">
             {currPlaylist.length > 0 ?
               <div className="info-text">
-                <span class="info-text-highlight">{clickedGenre.genre}</span> accounts for
+                <span class="info-text-highlight">{clickedGenre.genre}</span> <br></br> accounts for
                 <span class="info-text-highlight"> {Math.round(clickedGenre.numSongs / 50 * totalTopSongs)}% </span>
                  of your top songs
               </div>
-              : <div className="info-text">Choose a genre from your <span class="info-text-highlight">top genres on Spotify</span>!</div>
+              : <div className="info-text">Explore Your <br></br> <span class="info-text-highlight">top genres </span> <br></br>
+              on Spotify!</div>
             }
           </Col>
 
@@ -183,6 +203,15 @@ export default function Genre({ accessToken, code }) {
                 </li>
               ))} */}
 
+            <DropdownButton className="view-dropdown"
+              title={numberOfItems}
+              onSelect={(e) => { setNumberOfItems(e) }}
+            >
+              <Dropdown.Item eventKey="10">10</Dropdown.Item>
+              <Dropdown.Item eventKey="25">25</Dropdown.Item>
+              <Dropdown.Item eventKey="50">50</Dropdown.Item>
+            </DropdownButton>
+
             <Donut className="donut"
               topGenres={topGenres}
               clickedGenre={clickedGenre}
@@ -190,24 +219,19 @@ export default function Genre({ accessToken, code }) {
               setCurrPlaylist={setCurrPlaylist}
               currPlayingTrack={currPlayingTrack}
               currPlayingTrackInfo={currPlayingTrackInfo}
+              numberOfItems={numberOfItems}
             />
 
           </Col>
 
           <Col className="playlist-wrapper">
             <div>
-              {currPlaylist.length > 0 ?
-                <Playlist
-                  currPlaylist={currPlaylist}
-                  currPlayingTrack={currPlayingTrack}
-                />
-                :
-                <div className="info-text">
-                  <span class="info-text-highlight">{clickedGenre.genre}</span> accounts for
-                <span class="info-text-highlight"> {Math.round(clickedGenre.numSongs / 50 * totalTopSongs)}% </span>
-                 of your top songs
-              </div>
-              }
+
+              <Playlist
+                currPlaylist={currPlaylist}
+                currPlayingTrack={currPlayingTrack}
+              />
+
 
             </div>
           </Col>

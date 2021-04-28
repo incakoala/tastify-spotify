@@ -16,54 +16,34 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
 
   return (
     <>
-      <div className='playlist-table-wrapper'>
-        <Table responsive borderless className='playlist-table'>
-          <tbody>
-            {currPlaylist.length > 0 ?
-              [...Array(currPlaylist.length)].map((e, i) => (
-                <>
-                  <tr className={rowName(i)} id={i}>
-                    <td>{i + 1}</td>
-                    <td>
-                      {currPlaylist[i].artist}
-                      <br></br>
-                      {currPlaylist[i].track}
-                    </td>
-                    <td>{currPlaylist[i].trackDuration}</td>
-                  </tr>                  
-                </>
-              ))
-              : null}
-          </tbody>
-        </Table>
+      {currPlaylist.length > 0 ?
+        <div className='playlist-table-wrapper'>
+          <Table responsive borderless className='playlist-table'>
+            <tbody>
+              {currPlaylist.length > 0 ?
+                [...Array(currPlaylist.length)].map((e, i) => (
+                  <>
+                    <tr className={rowName(i)} id={i}>
+                      <td>{i + 1}</td>
+                      <td>
+                        <b>{currPlaylist[i].track}</b>
+                        <br></br>
+                        {currPlaylist[i].artist}
+                      </td>
+                      <td>{currPlaylist[i].trackDuration}</td>
+                    </tr>
+                  </>
+                ))
+                : null}
+            </tbody>
+          </Table>
+        </div>
+        :
+        <div className='playlist-table-wrapper'>
+          <div style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a genre to start listening!</div>
+        </div>
+      }
 
-        {/* <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry the Bird</td>
-            <td>Jacob</td>
-          </tr>
-        </tbody>
-      </Table> */}
-      </div>
     </>
   )
 }
