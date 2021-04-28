@@ -176,16 +176,12 @@ export default class Donut extends React.Component {
                 },
                 onClick: () => {
                   this.clearClicks()
-
-                  console.log(this.props.clickedGenre)
-
                   return [
                     {
                       target: ["data"],
                       mutation: (props) => {
-                        // console.log(props)
-                        console.log('item selected is',
-                          Object.values(this.props.topGenres)[props.index].x, Object.values(this.props.topGenres)[props.index].y)
+                        // console.log('item selected is',
+                        //   Object.values(this.props.topGenres)[props.index].x, Object.values(this.props.topGenres)[props.index].y)
 
 
                         if (this.props.clickedGenre !== "") {
@@ -198,8 +194,6 @@ export default class Donut extends React.Component {
                         this.setState({
                           lastClicked: props.index
                         });
-
-                        // console.log(this.state.lastClicked)
 
                         return {
                           style: { fill: "#AF7C40" }
@@ -233,8 +227,6 @@ export default class Donut extends React.Component {
             }
           ]}
         />
-
-        {/* {console.log(this.props.currPlayingTrack)} */}
 
         {typeof (this.props.currPlayingTrack) === 'string' ?
           <div className="vinyl-wrapper" id="spinning">

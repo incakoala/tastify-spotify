@@ -8,7 +8,7 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowPlaylis
 
   return (
     <>
-      <Navbar className="navbar">
+      <Navbar className="my-navbar">
         <Navbar.Brand className="navbar-brand">
           {/* <img
             alt=""
@@ -20,24 +20,24 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowPlaylis
           <div className="navbar-brand-name">Tastify</div>
         </Navbar.Brand>
 
-        <Nav.Link tabindex="0" className="navbar-link" onClick={() => {
+        <Nav.Link className="navbar-link" onClick={() => {
           // setCode(_code)
           setShowGenre(true)
           setShowArtist(false)
           setShowPlaylist(false)
         }}>Genre</Nav.Link>
 
-        <Nav.Link tabindex="0" className="navbar-link" onClick={() => {
+        <Nav.Link className="navbar-link" onClick={() => {
           setShowArtist(true)
           setShowGenre(false)
           setShowPlaylist(false)
         }}>Artist</Nav.Link>
 
-        <Nav.Link tabindex="0" className="navbar-link" onClick={() => {
+        <Nav.Link className="navbar-link" onClick={() => {
           setShowPlaylist(true)
           setShowGenre(false)
           setShowArtist(false)
-        }}>Tastify Playlist</Nav.Link>
+        }}>TastePlaylist</Nav.Link>
 
         {/* <Nav.Link href="/">Genre</Nav.Link>
         <Nav.Link href="/artist">Artist</Nav.Link>

@@ -1,5 +1,21 @@
+/* * { 
+  border: 1px solid white; 
+} */
+
 .App {
   text-align: center;
+}
+
+.app {
+  /* width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap; */
+}
+
+.root {
+  
 }
 
 .App-logo {
@@ -42,18 +58,20 @@ body {
   color: white;
   font-family: Arial;
   text-align: center;
+  height: 100vh;
 }
 
-.navbar {
+.my-navbar {
   background-color: #AF7C40;
-  height: 90px;
+  height: 100%;
   padding-top: 0;
   padding-bottom: 0;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .navbar-expand {
-  border-bottom-left-radius: 2%30px;
-  border-bottom-right-radius: 2%40px;
+
 }
 
 .navbar-link {
@@ -62,6 +80,7 @@ body {
   font-weight: bold;
   height: 100%;
   padding-top: 27px;
+  padding-bottom: 27px;
   /* padding-bottom: 15px; */
 }
 

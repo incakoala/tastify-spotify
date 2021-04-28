@@ -34,8 +34,8 @@ export default function App() {
   // return code ? <Genre code={code} /> : <Login />
 
   return (
-    <>
-      {code ? (
+    <div className="app">
+      {code ?
         <Navigation
           setShowGenre={setShowGenre}
           setShowArtist={setShowArtist}
@@ -43,26 +43,22 @@ export default function App() {
           code={code}
           setCode={setCode}
         />
-      ) :
-        <Login />
+        : <Login />
       }
 
-      {showGenre === true ? (
+      {showGenre === true ?
         <Genre code={code} accessToken={accessToken} />
-      ) :
-        <> </>
+        : <> </>
       }
-      {showArtist === true ? (
+      {showArtist === true ?
         <Artist code={code} accessToken={accessToken} />
-      ) :
-        <> </>
+        : <> </>
       }
-      {showPlaylist === true ? (
+      {showPlaylist === true ?
         <TastifyPlaylist code={code} accessToken={accessToken} />
-      ) :
-        <> </>
+        : <> </>
       }
-    </>
+    </div>
 
   )
 }
