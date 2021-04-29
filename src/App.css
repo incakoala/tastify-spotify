@@ -2,6 +2,7 @@
   border: 1px solid white; 
 } */
 
+
 .App {
   text-align: center;
 }
@@ -48,7 +49,7 @@
 body {
   background-color: #000000;
   color: white;
-  font-family: Arial;
+  font-family: Helvetica;
   text-align: center;
   height: 100vh;
 }
@@ -108,4 +109,100 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* .login-btn {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.login-btn a {
+  color:white
+}
+
+.login-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.login-btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.login-btn:hover span {
+  padding-right: 25px;
+}
+
+.login-btn:hover span:after {
+  opacity: 1;
+  right: 0;
+} */
+
+
+.login-text {
+	font-family: Helvetica;
+	letter-spacing: 0.4em;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+  text-decoration: underline;
+	color: #e6d5d5;
+  cursor: pointer;
+}
+
+.login-text:hover {
+  position: relative;
+  -webkit-animation: moving 2s;
+  animation: moving 2s;
+}
+
+@-webkit-keyframes moving {
+  from {left: 0px;}
+  to {left: 50px;}
+}
+
+@keyframes moving {
+  from {left: 0px;}
+  to {left: 50px;}
+}
+
+.home-text {
+  position: absolute; 
+  top: 200px; 
+  left: 0; 
+  width: 100%; 
+  color:#e6d5d5;
+  font-size: 50px;
+  font-family: 'Staatliches';
+}
+
+.my-footer {
+  background-color: black;
+  height: 40px;
+}
+
+.footer-text {
+	font-family: Helvetica;
+	letter-spacing: 0.4em;
+	font-weight: bold;
+	font-size: 14px;
+	color: #e6d5d5;
+  cursor: pointer;
 }

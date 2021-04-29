@@ -191,7 +191,7 @@ export default function Genre({ accessToken, code }) {
       <Row className="content-wrapper">
         <Col className="playlist-wrapper">
           <div>
-            <div className="info-text"><span style={{ fontFamily: 'Staatliches' }}>Top 
+            <div className="info-text"><span style={{ fontFamily: 'Staatliches' }}>Top
             <span class="info-text-highlight"> {clickedGenre.genre} </span>Songs</span></div>
             <Playlist
               currPlaylist={currPlaylist}
@@ -230,7 +230,7 @@ export default function Genre({ accessToken, code }) {
             </div>
             :
             <div className="info-text">
-              Explore Your <br></br>
+              Discover Your <br></br>
               <span class="info-text-highlight">top genres </span> <br></br>
               on Spotify!
             </div>

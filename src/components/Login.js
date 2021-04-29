@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import '../App.css'
 
 import { Container } from "react-bootstrap"
 
@@ -6,8 +7,21 @@ const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=b2d89a8ed2a54
 
 export default function Login() {
   return (
+
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }} >
-      <a className="btn btn-success btn-lg" href={AUTH_URL}>Login With Spotify</a>
+      <a href={AUTH_URL} class="login-text">Login with Spotify</a>
     </Container>
+
+    //<a className="login-btn" href={AUTH_URL}>Login With Spotify</a>
+
+    // <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }} >
+    //   <button class="login-btn" style={{ verticalAlign: 'middle' }}>
+    //     <a href={AUTH_URL}>
+    //       <span>Login With Spotify</span>
+    //     </a>
+    //   </button>
+    // </Container>
+
+
   )
 }

@@ -8,6 +8,8 @@ import Artist from "./components/Artist";
 import TastifyPlaylist from './components/TastifyPlaylist'
 
 import React, { useState, useEffect } from 'react'
+import { Container, Navbar } from "react-bootstrap"
+
 import Logo from "./logo.svg"
 
 // const code = new URLSearchParams(window.location.search).get('code');
@@ -37,8 +39,15 @@ export default function App() {
         :
         <>
           <div className='background-img'>
+            <div className="home-text"><span style={{ fontSize: '80px' }}>TASTIFY </span><br></br>"Dicover Your Music Taste"</div>
             <Login />
+
           </div>
+          <Navbar className="my-footer" fixed="bottom">
+            <div style={{ marginLeft: 'auto', marginRight: '0' }} >
+              <a class='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
+            </div>
+          </Navbar>
         </>
       }
 
