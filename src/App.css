@@ -6,16 +6,8 @@
   text-align: center;
 }
 
-.app {
-  /* width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap; */
-}
-
 .root {
-  
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -70,10 +62,6 @@ body {
   border-bottom-right-radius: 40px;
 }
 
-.navbar-expand {
-
-}
-
 .navbar-link {
   color:black;
   font-size: 25px;
@@ -81,23 +69,29 @@ body {
   height: 100%;
   padding-top: 27px;
   padding-bottom: 27px;
-  /* padding-bottom: 15px; */
+  padding-left: 50px!important;
+  padding-right: 50px!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.navbar-link:hover {
-  color:white;
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   background-color: black;
 }
 
-.navbar-link:focus{
-  color:white;
-  background-color: black;
-  outline: 0;
+.nav-link.active {
+  color: white!important;
+}
+
+.navbar-light .navbar-nav .nav-link{
+  color: black;
 }
 
 .navbar-brand {
 
 }
+
 .navbar-brand-name {
   color:black;
   font-size: 50px;

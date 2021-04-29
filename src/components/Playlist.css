@@ -1,7 +1,7 @@
 .playlist-table-wrapper {
   /* width: 50%; */
-  width:400px;
-  height:450px;
+  min-width:300px;
+  max-height:500px;
   overflow-y: scroll;
   border-radius: 30px;
   background: #FFB55D;

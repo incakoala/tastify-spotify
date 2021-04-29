@@ -1,94 +1,22 @@
 .player-wrapper {
-  /* position: relative;
-  top: 0;
-  left: 0; */
-
-  /* display: inline-block; */
   position:relative;
 }
 
 
 .donut {
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1; */
-
   width: 100%;
   max-width: 100%;
-  
 }
 
 .vinyl-wrapper {
-  /* position: absolute;
-  top: 55px;
-  left: 100px;
-  z-index: 3; */
-  
-  /* max-width: 55%; */
-  /* padding: 10px; */
-  /* bottom: 100; */
-  /* left: 50%; */
-  /* margin-left:20%; */
-  /* margin-top: 80%; */
-  /* transform: translate(41%, -141%) */
-
   position:absolute;
   right: 25%;
   top: 25%;
   width: 50%;
-  /* max-width:50%; */
-
-
-
 }
 
 #spinning {
   animation:spin 4s linear infinite;
 }
-
-.vinyl {
-  /* position: absolute;
-  top:50%; 
-  left: 50%;
-  max-width: 55%; */
-  /* transform: translate(41%, -141%); */
-
-  /* position:absolute; 
-  top: 70px; 
-  left: 100px; 
-  z-index: 3; */
-}
-
-
-.album-cover {
-  /* position: absolute;
-  top:50%; 
-  left: 50%;
-  max-width: 20%;
-  border-radius: 50%;
-  z-index: 1; */
-
-  /* transform: translate(-50%, -437%); */
-
-  /* position:absolute; 
-  top: 255px; 
-  left: 255px; 
-  z-index: 1;
-  max-width: 35%;
-  height: auto;
-  border-radius: 50%; */
-  
-}
-
-/* @keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-50%, -437%);
-  }
-} */
-
 
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

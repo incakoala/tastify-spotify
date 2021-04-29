@@ -22,12 +22,14 @@
 }
 
 .donut-wrapper {
-
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .view-dropdown{
   padding-top: 20px;
-  padding-left: 160px;
+  padding-left: 180px;
 }
 
 .info-text {
@@ -47,29 +49,11 @@
 }
 
 .footer-wrapper {
-  /* position: -webkit-sticky;
-  position: sticky;
-  bottom: 0;
-  left: 0; */
-
-  /* margin-top: 1rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%; */
-
-  /* margin-top: auto */
-
   padding-bottom: 0;
 }
 
 .content-wrapper {
   padding-bottom: 150px;
-}
-
-#dropdown-item-button {
-  /* background-color: #AF7C40; */
-  /* width: 160px; */
 }
 
 .dropdown-item {

@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from "./components/Login";
@@ -9,10 +8,7 @@ import Artist from "./components/Artist";
 import TastifyPlaylist from './components/TastifyPlaylist'
 
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Navbar, Nav, Container } from 'react-bootstrap';
 import Logo from "./logo.svg"
-import Playlist from './components/Playlist';
 
 // const code = new URLSearchParams(window.location.search).get('code');
 
@@ -23,7 +19,6 @@ export default function App() {
   const [showGenre, setShowGenre] = useState(false)
   const [showArtist, setShowArtist] = useState(false)
   const [showPlaylist, setShowPlaylist] = useState(false)
-  const [initGenre, setInitGenre] = useState(false)
 
   useEffect(() => {
     if (code && !showGenre && !showArtist && !showPlaylist) {
@@ -31,21 +26,16 @@ export default function App() {
     }
   }, [code, setShowGenre, showGenre, showArtist, showPlaylist])
 
-  // return code ? <Genre code={code} /> : <Login />
-
   return (
-    <div className="app">
+    <div>
       {code ?
         <Navigation
           setShowGenre={setShowGenre}
           setShowArtist={setShowArtist}
           setShowPlaylist={setShowPlaylist}
-          code={code}
-          setCode={setCode}
         />
         :
         <>
-
           <div className='background-img'>
             <Login />
           </div>

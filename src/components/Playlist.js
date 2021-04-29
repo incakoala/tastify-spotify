@@ -20,27 +20,25 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
         <div className='playlist-table-wrapper'>
           <Table responsive borderless className='playlist-table'>
             <tbody>
-              {currPlaylist.length > 0 ?
-                [...Array(currPlaylist.length)].map((e, i) => (
-                  <>
-                    <tr className={rowName(i)} id={i}>
-                      <td>{i + 1}</td>
-                      <td>
-                        <b>{currPlaylist[i].track}</b>
-                        <br></br>
-                        {currPlaylist[i].artist}
-                      </td>
-                      <td>{currPlaylist[i].trackDuration}</td>
-                    </tr>
-                  </>
-                ))
-                : null}
+              {[...Array(currPlaylist.length)].map((e, i) => (
+                <>
+                  <tr className={rowName(i)} id={i}>
+                    <td>{i + 1}</td>
+                    <td>
+                      <b>{currPlaylist[i].track}</b>
+                      <br></br>
+                      {currPlaylist[i].artist}
+                    </td>
+                    <td>{currPlaylist[i].trackDuration}</td>
+                  </tr>
+                </>
+              ))}
             </tbody>
           </Table>
         </div>
         :
         <div className='playlist-table-wrapper'>
-          <div style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a genre to start listening!</div>
+          <span style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a genre to start listening!</span>
         </div>
       }
 

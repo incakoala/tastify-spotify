@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState()
@@ -17,7 +17,7 @@ export default function useAuth(code) {
       })
       .catch((err) => {
         console.log(err)
-        // window.location = '/'
+        window.location = '/'
       })
   }, [code])
 
