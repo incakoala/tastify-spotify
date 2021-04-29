@@ -38,7 +38,7 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
         </div>
         :
         <div className='playlist-table-wrapper'>
-          <span style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a genre to start listening!</span>
+          <span style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a category to start listening!</span>
         </div>
       }
 

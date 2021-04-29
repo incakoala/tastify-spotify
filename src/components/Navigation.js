@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Badge } from 'react-bootstrap';
 import '../App.css';
 import Logo from "../logo.svg"
-export default function Navigation({ setShowGenre, setShowArtist, setShowPlaylist }) {
+export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFeature, setShowPlaylist }) {
   return (
     <>
       <Navbar collapseOnSelect expand="md" className="my-navbar">
@@ -27,6 +27,8 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowPlaylis
                   setShowGenre(true)
                   setShowArtist(false)
                   setShowPlaylist(false)
+                  setShowAudioFeature(false)
+
                 }}>Genre</Nav.Link>
             </Nav.Item>
 
@@ -36,16 +38,18 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowPlaylis
                   setShowArtist(true)
                   setShowGenre(false)
                   setShowPlaylist(false)
+                  setShowAudioFeature(false)
                 }}>Artist</Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
               <Nav.Link className="navbar-link" eventKey="link-3"
                 onClick={() => {
-                  setShowPlaylist(true)
+                  setShowAudioFeature(true)
+                  setShowPlaylist(false)
                   setShowGenre(false)
                   setShowArtist(false)
-                }}>TasteWiz <sup><Badge pill variant="success">beta</Badge></sup></Nav.Link>
+                }}>Audio Feature</Nav.Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

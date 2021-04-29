@@ -25,11 +25,11 @@ import Vinyl from "./vinyl.svg"
 
 
 
-const showLabels = ((datum, topGenres) => {
-  const len = topGenres.length
-  const moreThan3 = Object.values(topGenres[len - 1])[0] === datum ||
-    Object.values(topGenres[len - 2])[0] === datum ||
-    Object.values(topGenres[len - 3])[0] === datum
+const showLabels = ((datum, topCategories) => {
+  const len = topCategories.length
+  const moreThan3 = Object.values(topCategories[len - 1])[0] === datum ||
+    Object.values(topCategories[len - 2])[0] === datum ||
+    Object.values(topCategories[len - 3])[0] === datum
 
   if (len > 3) {
     return moreThan3
@@ -104,12 +104,12 @@ export default class Donut extends React.Component {
           labelComponent={<VictoryLabel renderInPortal />}
           // padding={{ top: 100 }}
           externalEventMutations={this.state.externalMutations}
-          data={this.props.topGenres.slice(0, numberOfItems)}
+          data={this.props.topCategories.slice(0, numberOfItems)}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
           padAngle={({ datum }) => datum.y}
           innerRadius={120}
           labelRadius={({ innerRadius }) => innerRadius + 35}
-          // labels={({ datum }) => showLabels(datum.x, this.props.topGenres) === true ? datum.x : null}
+          // labels={({ datum }) => showLabels(datum.x, this.props.topCategories) === true ? datum.x : null}
           labels={({ datum }) => datum.x.length > 10 ? `${datum.x.slice(0, 10)}..` : datum.x}
           labelPlacement={() => "parallel"}
 
@@ -174,12 +174,12 @@ export default class Donut extends React.Component {
                       target: ["data"],
                       mutation: (props) => {
                         // console.log('item selected is',
-                        //   Object.values(this.props.topGenres)[props.index].x, Object.values(this.props.topGenres)[props.index].y)
+                        //   Object.values(this.props.topCategories)[props.index].x, Object.values(this.props.topCategories)[props.index].y)
 
                         if (this.props.clickedGenre !== "") {
                           this.props.setClickedGenre({
-                            genre: Object.values(this.props.topGenres)[props.index].x,
-                            numSongs: Object.values(this.props.topGenres)[props.index].y
+                            genre: Object.values(this.props.topCategories)[props.index].x,
+                            numSongs: Object.values(this.props.topCategories)[props.index].y
                           })
                         }
 
@@ -194,9 +194,9 @@ export default class Donut extends React.Component {
                         // const fill = props.style && props.style.fill;
                         // return fill === "#AF7C40" ? null : { style: { fill: "#AF7C40" } }
 
-                        // console.log(this.props.clickedGenre.genre, Object.values(this.props.topGenres)[props.index].x)
+                        // console.log(this.props.clickedGenre.genre, Object.values(this.props.topCategories)[props.index].x)
 
-                        // const thisSlice = this.props.clickedGenre.genre === Object.values(this.props.topGenres)[props.index].x ? true : false
+                        // const thisSlice = this.props.clickedGenre.genre === Object.values(this.props.topCategories)[props.index].x ? true : false
 
                         // return thisSlice ? { style: { fill: "#AF7C40" } } : null
                       }

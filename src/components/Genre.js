@@ -4,13 +4,13 @@ import SpotifyWebApi from "spotify-web-api-node"
 import Player from './Player'
 import Playlist from './Playlist'
 import Donut from './Donut'
-import './Genre.css'
+import './Category.css'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "b2d89a8ed2a5494196384e30483c4706"
 })
 export default function Genre({ accessToken, code }) {
-  const [topGenres, setTopGenres] = useState([])
+  const [topCategories, setTopCategories] = useState([])
   const [clickedGenre, setClickedGenre] = useState({})
   const [currPlaylist, setCurrPlaylist] = useState([])
   const [currPlayingTrack, setCurrPlayingTrack] = useState()
@@ -54,6 +54,8 @@ export default function Genre({ accessToken, code }) {
       .getMyTopTracks({ limit: 50, time_range: "long_term" })
       // only take the first artist of a track
       .then((data) => {
+        setTotalTopSongs(data.body.items.length)
+
         return data.body.items.map((track) => {
           return track.artists[0]
         })
@@ -81,7 +83,6 @@ export default function Genre({ accessToken, code }) {
       // transform to {x: genre, y: numSongs} object so that VictoryChart
       // can display the data
       .then((topSongs) => {
-        setTotalTopSongs(Object.keys(topSongs).length)
         return Object.keys(topSongs).slice(0, Object.keys(topSongs).length)
           .reduce((result, item) => {
             result.push({
@@ -96,12 +97,12 @@ export default function Genre({ accessToken, code }) {
       })
       // set final top genres
       .then((finalTopGenres) => {
-        setTopGenres(finalTopGenres)
+        setTopCategories(finalTopGenres)
       })
       .catch((err) => {
         console.log(err)
       })
-  }, [topGenres, accessToken])
+  }, [accessToken])
 
   // Get user's top tracks from a genre
   const getTopTracksFromGenre = (inputGenre) => {
@@ -174,6 +175,7 @@ export default function Genre({ accessToken, code }) {
       })
       // set final playlist
       .then((finalList) => {
+        console.log(finalList)
         return setCurrPlaylist(
           finalList
             .filter((g) => {
@@ -211,7 +213,7 @@ export default function Genre({ accessToken, code }) {
           </DropdownButton>
 
           <Donut className="donut"
-            topGenres={topGenres}
+            topCategories={topCategories}
             clickedGenre={clickedGenre}
             setClickedGenre={setClickedGenre}
             setCurrPlaylist={setCurrPlaylist}
@@ -226,7 +228,7 @@ export default function Genre({ accessToken, code }) {
           {currPlaylist.length > 0 ?
             <div className="info-text">
               <span class="info-text-highlight">{clickedGenre.genre} </span> accounts for
-              <span class="info-text-highlight"> {Math.round(clickedGenre.numSongs / 50 * totalTopSongs)}% </span> of your top songs
+              <span class="info-text-highlight"> {Math.round(clickedGenre.numSongs / totalTopSongs * 100)}% </span> of your top songs
             </div>
             :
             <div className="info-text">

@@ -11,17 +11,5 @@ export default function Login() {
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }} >
       <a href={AUTH_URL} class="login-text">Login with Spotify</a>
     </Container>
-
-    //<a className="login-btn" href={AUTH_URL}>Login With Spotify</a>
-
-    // <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }} >
-    //   <button class="login-btn" style={{ verticalAlign: 'middle' }}>
-    //     <a href={AUTH_URL}>
-    //       <span>Login With Spotify</span>
-    //     </a>
-    //   </button>
-    // </Container>
-
-
   )
 }
