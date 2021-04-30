@@ -29,6 +29,8 @@ export default function Player({
     <>
       <SpotifyPlayer
         token={accessToken}
+        autoPlay
+        persistDeviceSelection
         showSaveIcon
         callback={state => {
           if (state.isPlaying) {
