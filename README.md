@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Tastity 🎸🤘🎼🎵
+**A music taste discovery tool built with the [Spotify API](https://developer.spotify.com/discover/).**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**[Live Website](https://tastify-spotify.herokuapp.com/)**
 
-## Available Scripts
+At the minimum, you must have a Spotify account to view the data points. To utilize all of the features, [Spotify Premium](https://www.spotify.com/us/premium/) and one of the [supported browsers](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) are required.
 
-In the project directory, you can run:
+![gifplay](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825992/ezgif.com-gif-maker_ugp68v.gif)
 
-### `yarn start`
+## Setup
+[Follow the authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) to set up a new app and obtain Spotify client information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Start the backend server
+```
+1. npm install
+2. npm run devStart
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Start the React client
+```
+1. cd client
+2. npm install
+3. npm start
+```
 
-### `yarn test`
+Once both the servers are started, the application can be accessed at http://localhost:3000/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
+* Spotify Web API
+* Spotify Web Playback SDK
+* React
+* Node
+* Express
+* Victory Charts
 
-### `yarn build`
+![webapi](https://res.cloudinary.com/devjzx2qq/image/upload/v1619824771/Web_API_endpoints_uysz5w.svg)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Screenshots
+![screenshot1](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825281/Screen_Shot_2021-04-30_at_4.25.05_PM_vhvbva.png)
+![screenshot2](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825281/Screen_Shot_2021-04-30_at_4.26.02_PM_gvjpao.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Copyright © [incakoala](https://github.com/incakoala)**
