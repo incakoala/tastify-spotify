@@ -8,7 +8,7 @@ import './Category.css'
 import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: "b2d89a8ed2a5494196384e30483c4706"
+  clientId: process.env.CLIENT_ID
 })
 export default function Artist({ accessToken, code }) {
   const [topCategories, setTopCategories] = useState([])
@@ -205,16 +205,16 @@ export default function Artist({ accessToken, code }) {
             </Nav.Item>
           </Nav>
 
-            <Donut className="donut"
-              topCategories={topCategories}
-              clickedGenre={clickedGenre}
-              setClickedGenre={setClickedGenre}
-              setCurrPlaylist={setCurrPlaylist}
-              currPlayingTrack={currPlayingTrack}
-              currPlayingTrackInfo={currPlayingTrackInfo}
-              numberOfItems={numberOfItems}
-              isPaused={isPaused}
-            />
+          <Donut className="donut"
+            topCategories={topCategories}
+            clickedGenre={clickedGenre}
+            setClickedGenre={setClickedGenre}
+            setCurrPlaylist={setCurrPlaylist}
+            currPlayingTrack={currPlayingTrack}
+            currPlayingTrackInfo={currPlayingTrackInfo}
+            numberOfItems={numberOfItems}
+            isPaused={isPaused}
+          />
         </Col>
 
         <Col className="text-wrapper">
@@ -225,7 +225,7 @@ export default function Artist({ accessToken, code }) {
             </div>
             :
             <div className="info-text">
-            Discover Your <br></br>
+              Discover Your <br></br>
               <span className="info-text-highlight">top artists </span> <br></br>
               on Spotify!
             </div>

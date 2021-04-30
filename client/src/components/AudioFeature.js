@@ -6,7 +6,7 @@ import Radar from './Radar'
 import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: "b2d89a8ed2a5494196384e30483c4706"
+  clientId: process.env.CLIENT_ID
 })
 export default function AudioFeature({ accessToken, code }) {
   const [topTracks, setTopTracks] = useState([])
