@@ -10,14 +10,11 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-var DEV = process.env.DEV ? true : false;
-var redirect_uri = DEV ? 'http://localhost:3000' : 'https://tastify-spotify.herokuapp.com'
-
 app.post('/login', (req, res) => {
   const code = req.body.code
 
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: redirect_uri,
+    redirectUri: 'https://tastify-spotify.herokuapp.com',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET
   })
@@ -39,7 +36,7 @@ app.post('/login', (req, res) => {
 app.post('/refresh', (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: redirect_uri,
+    redirectUri: 'https://tastify-spotify.herokuapp.com',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken
