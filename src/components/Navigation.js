@@ -1,19 +1,11 @@
 import React from 'react'
-import { Navbar, Nav, Badge } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import '../App.css';
-import Logo from "../logo.svg"
-export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFeature, setShowPlaylist }) {
+export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFeature }) {
   return (
     <>
       <Navbar collapseOnSelect expand="md" className="my-navbar">
         <Navbar.Brand className="navbar-brand">
-          {/* <img
-            alt=""
-            src={Logo}
-            width="30"
-            height="50"
-          // className="d-inline-block align-top"
-          />{' '} */}
           <div className="navbar-brand-name">Tastify</div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -23,10 +15,8 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFe
             <Nav.Item>
               <Nav.Link className="navbar-link" eventKey="link-1"
                 onClick={() => {
-                  // setCode(_code)
                   setShowGenre(true)
                   setShowArtist(false)
-                  setShowPlaylist(false)
                   setShowAudioFeature(false)
 
                 }}>Genre</Nav.Link>
@@ -37,7 +27,6 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFe
                 onClick={() => {
                   setShowArtist(true)
                   setShowGenre(false)
-                  setShowPlaylist(false)
                   setShowAudioFeature(false)
                 }}>Artist</Nav.Link>
             </Nav.Item>
@@ -46,7 +35,6 @@ export default function Navigation({ setShowGenre, setShowArtist, setShowAudioFe
               <Nav.Link className="navbar-link" eventKey="link-3"
                 onClick={() => {
                   setShowAudioFeature(true)
-                  setShowPlaylist(false)
                   setShowGenre(false)
                   setShowArtist(false)
                 }}>Audio Feature</Nav.Link>

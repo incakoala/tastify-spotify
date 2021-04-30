@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import { Table } from 'react-bootstrap'
 import './Playlist.css'
 
@@ -6,20 +6,13 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
   const rowName = (i) => {
     if (currPlaylist[i].trackUri === currPlayingTrack) return "row-selected"
   }
-  const ref = React.createRef();
-
-  const handleClick = () =>
-    ref.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
 
   return (
     <>
       {currPlaylist.length > 0 ?
         <div className='playlist-table-wrapper'>
           <Table responsive borderless className='playlist-table'>
-            <tbody>
+            <tbody className='table-body'>
               {[...Array(currPlaylist.length)].map((e, i) => (
                 <>
                   <tr className={rowName(i)} id={i}>
@@ -38,10 +31,9 @@ export default function Playlist({ currPlaylist, currPlayingTrack }) {
         </div>
         :
         <div className='playlist-table-wrapper'>
-          <span style={{ color: 'black', fontSize: '20px', paddingTop: "50%" }}> Select a category to start listening!</span>
+          <span style={{ color: 'black', fontSize: '18px', paddingTop: "50%", letterSpacing: '0.1em' }}> Select a category to listen!</span>
         </div>
       }
-
     </>
   )
 }

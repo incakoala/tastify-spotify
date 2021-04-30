@@ -1,15 +1,15 @@
 .playlist-table-wrapper {
-  /* width: 50%; */
   min-width:300px;
-  max-height:500px;
+  max-height:350px;
   overflow-y: scroll;
   border-radius: 30px;
-  background: #FFB55D;
-}
-.playlist-table {
-  
+  background: #C4C4C4;
 }
 
 .row-selected {
-  background-color: #AF7C40;
+  background-color: #939393;
+}
+
+.table-body {
+  letter-spacing: 0.1em;
 }

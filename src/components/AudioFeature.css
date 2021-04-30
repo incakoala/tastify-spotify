@@ -1,0 +1,42 @@
+.audio-content-wrapper {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: transparent;
+}
+
+.card-title {
+  letter-spacing: 0.2em;
+  font-weight: bold;
+  font-size: 20px;
+  color: #AF7C40;
+}
+
+.card-text {
+  letter-spacing: 0.1em;
+  font-size: 16px;
+  color: white;
+}
+
+
+.tab-item {
+  color: white;
+  font-weight: bold;
+}
+
+.tab-item:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.tab-item:active {
+  color: black!important;
+}
+
+.radar-wrapper {
+  padding-top: 20px;
+}

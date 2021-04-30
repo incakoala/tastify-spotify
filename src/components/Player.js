@@ -48,7 +48,7 @@ export default function Player({
         }}
         uris={trackUris ? flattenedUris(trackUris) : []}
         styles={{
-          height: 70,
+          height: 50,
           activeColor: '#AF7C40',
           bgColor: '#000000',
           color: '#AF7C40',

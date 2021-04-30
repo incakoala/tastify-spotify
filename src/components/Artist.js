@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Navbar, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap'
 import SpotifyWebApi from "spotify-web-api-node"
 import Player from './Player'
 import Playlist from './Playlist'
 import Donut from './Donut'
 import './Category.css'
+import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "b2d89a8ed2a5494196384e30483c4706"
@@ -32,7 +33,7 @@ export default function Artist({ accessToken, code }) {
   }, [clickedGenre, accessToken])
 
 
-  // Get user's top genres
+  // Get user's top artists
   useEffect(() => {
     if (!accessToken) return
 
@@ -41,31 +42,27 @@ export default function Artist({ accessToken, code }) {
       .getMyTopTracks({ limit: 50, time_range: "long_term" })
       // only take the first artist of a track
       .then((data) => {
-        // console.log(data.body.items.length)
         setTotalTopSongs(data.body.items.length)
 
         return data.body.items.map((track) => track.artists)
       })
+      // flatten array
       .then((artists) => {
-        // console.log(artists)
         return [].concat.apply([], artists)
           .map((artist) => artist)
           .reduce((result, item) => {
-            // console.log(item)
             result.push(item)
             return result
           }, [])
       })
+      // save name
       .then((artistsObject) => {
-        // console.log(artistsObject)
         return artistsObject.map((obj) => {
-          // console.log(obj.id)
           return obj.name
         })
       })
-      // map genres' occurences
+      // map artists' occurences
       .then((artistsList) => {
-        // console.log(artistsList)
         return [].concat.apply([], artistsList)
           .reduce((result, item) => {
             const get = (k) => {
@@ -80,11 +77,9 @@ export default function Artist({ accessToken, code }) {
             return result
           }, {})
       })
-      // transform to {x: genre, y: numSongs} object so that VictoryChart
+      // transform to {x: artist, y: numSongs} object so that VictoryChart
       // can display the data
       .then((topArtists) => {
-        // console.log(topArtists)
-        // setTotalTopSongs(Object.keys(topArtists).length)
         return Object.keys(topArtists).slice(0, Object.keys(topArtists).length)
           .reduce((result, item) => {
             result.push({
@@ -97,9 +92,7 @@ export default function Artist({ accessToken, code }) {
             return (a.y > b.y) ? -1 : (a.y === b.y) ? ((a.y > b.y) ? -1 : 1) : 1
           })
       })
-      // set final top genres
       .then((finalTopArtists) => {
-        // console.log(finalTopArtists)
         setTopCategories(finalTopArtists)
       })
       .catch((err) => {
@@ -131,12 +124,10 @@ export default function Artist({ accessToken, code }) {
               return artists
                 .map((artist) => artist)
                 .reduce((result, item) => {
-                  // console.log(item.name)
                   result.push(item.name)
                   return result
                 }, [])
             }
-            // console.log(getArtistsList(item.artists))
             result.push({
               artists: getArtistsList(item.artists),
               track: item.name,
@@ -147,22 +138,6 @@ export default function Artist({ accessToken, code }) {
             return result
           }, [])
       })
-      // update genres
-      // .then((tracksList) => {
-      //   return tracksList
-      //     .map((item) => item)
-      //     .reduce((result, data) => {
-      //       result.push({
-      //         artist: data.artist.body.name,
-      //         genres: data.artist.body.genres,
-      //         track: data.track,
-      //         trackUri: data.trackUri,
-      //         trackDuration: data.trackDuration,
-      //         albumUrl: data.albumUrl
-      //       })
-      //       return result
-      //     }, [])
-      // })
       // set final playlist
       .then((finalList) => {
         return setCurrPlaylist(
@@ -172,9 +147,6 @@ export default function Artist({ accessToken, code }) {
             })
         )
       })
-      // .then(() => {
-      //   console.log(currPlaylist)
-      // })
       .catch((err) => {
         console.log(err)
       })
@@ -195,37 +167,66 @@ export default function Artist({ accessToken, code }) {
         </Col>
 
         <Col xl={{ span: 5 }} className="donut-wrapper">
-          <DropdownButton className="view-dropdown"
-            title={numberOfItems}
-            onSelect={(e) => { setNumberOfItems(e) }}
-          >
-            <Dropdown.Item eventKey="10">10</Dropdown.Item>
-            <Dropdown.Item eventKey="25">25</Dropdown.Item>
-            <Dropdown.Item eventKey="50">50</Dropdown.Item>
-          </DropdownButton>
+          <Nav justify variant="tabs" defaultActiveKey="10">
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="10"
+                onClick={() => {
+                  setNumberOfItems(10)
+                }}
+              >
+                Top 10
+                </Nav.Link>
+            </Nav.Item>
 
-          <Donut className="donut"
-            topCategories={topCategories}
-            clickedGenre={clickedGenre}
-            setClickedGenre={setClickedGenre}
-            setCurrPlaylist={setCurrPlaylist}
-            currPlayingTrack={currPlayingTrack}
-            currPlayingTrackInfo={currPlayingTrackInfo}
-            numberOfItems={numberOfItems}
-            isPaused={isPaused}
-          />
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="25"
+                onClick={() => {
+                  setNumberOfItems("25")
+                }}
+              >
+                Top 25
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="50"
+                onClick={() => {
+                  setNumberOfItems("50")
+                }}
+              >
+                Top 50
+                </Nav.Link>
+            </Nav.Item>
+          </Nav>
+
+            <Donut className="donut"
+              topCategories={topCategories}
+              clickedGenre={clickedGenre}
+              setClickedGenre={setClickedGenre}
+              setCurrPlaylist={setCurrPlaylist}
+              currPlayingTrack={currPlayingTrack}
+              currPlayingTrackInfo={currPlayingTrackInfo}
+              numberOfItems={numberOfItems}
+              isPaused={isPaused}
+            />
         </Col>
 
         <Col className="text-wrapper">
           {currPlaylist.length > 0 ?
             <div className="info-text">
-              <span class="info-text-highlight">{clickedGenre.genre} </span> accounts for
-              <span class="info-text-highlight"> {Math.round(clickedGenre.numSongs / totalTopSongs * 100)}% </span> of your top songs
+              <span className="info-text-highlight">{clickedGenre.genre} </span> accounts for
+              <span className="info-text-highlight"> {Math.round(clickedGenre.numSongs / totalTopSongs * 100)}% </span> of your top songs
             </div>
             :
             <div className="info-text">
-              Discover Your <br></br>
-              <span class="info-text-highlight">top artists </span> <br></br>
+            Discover Your <br></br>
+              <span className="info-text-highlight">top artists </span> <br></br>
               on Spotify!
             </div>
           }
@@ -233,6 +234,8 @@ export default function Artist({ accessToken, code }) {
       </Row>
 
       <Navbar className="footer-wrapper" fixed="bottom">
+        <img src={Square} style={{ width: '210px', height: '50px' }} />
+
         <Player
           accessToken={accessToken}
           trackUris={currPlaylist}
@@ -241,8 +244,10 @@ export default function Artist({ accessToken, code }) {
           setCurrPlayingTrackInfo={setCurrPlayingTrackInfo}
           setIsPaused={setIsPaused}
         />
+
+        <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
       </Navbar>
 
-    </Container>
+    </Container >
   )
 }

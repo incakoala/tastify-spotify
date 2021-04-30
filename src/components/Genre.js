@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Navbar, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap'
 import SpotifyWebApi from "spotify-web-api-node"
 import Player from './Player'
 import Playlist from './Playlist'
 import Donut from './Donut'
 import './Category.css'
+import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "b2d89a8ed2a5494196384e30483c4706"
@@ -175,7 +176,6 @@ export default function Genre({ accessToken, code }) {
       })
       // set final playlist
       .then((finalList) => {
-        console.log(finalList)
         return setCurrPlaylist(
           finalList
             .filter((g) => {
@@ -194,7 +194,7 @@ export default function Genre({ accessToken, code }) {
         <Col className="playlist-wrapper">
           <div>
             <div className="info-text"><span style={{ fontFamily: 'Staatliches' }}>Top
-            <span class="info-text-highlight"> {clickedGenre.genre} </span>Songs</span></div>
+            <span className="info-text-highlight"> {clickedGenre.genre} </span>Songs</span></div>
             <Playlist
               currPlaylist={currPlaylist}
               currPlayingTrack={currPlayingTrack}
@@ -203,14 +203,43 @@ export default function Genre({ accessToken, code }) {
         </Col>
 
         <Col xl={{ span: 5 }} className="donut-wrapper">
-          <DropdownButton className="view-dropdown"
-            title={numberOfItems}
-            onSelect={(e) => { setNumberOfItems(e) }}
-          >
-            <Dropdown.Item eventKey="10">10</Dropdown.Item>
-            <Dropdown.Item eventKey="25">25</Dropdown.Item>
-            <Dropdown.Item eventKey="50">50</Dropdown.Item>
-          </DropdownButton>
+          <Nav justify variant="tabs" defaultActiveKey="10">
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="10"
+                onClick={() => {
+                  setNumberOfItems(10)
+                }}
+              >
+                Top 10
+                </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="25"
+                onClick={() => {
+                  setNumberOfItems("25")
+                }}
+              >
+                Top 25
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item className="tab">
+              <Nav.Link
+                className="tab-item"
+                eventKey="50"
+                onClick={() => {
+                  setNumberOfItems("50")
+                }}
+              >
+                Top 50
+                </Nav.Link>
+            </Nav.Item>
+          </Nav>
 
           <Donut className="donut"
             topCategories={topCategories}
@@ -241,6 +270,8 @@ export default function Genre({ accessToken, code }) {
       </Row>
 
       <Navbar className="footer-wrapper" fixed="bottom">
+        <img src={Square} style={{ width: '210px', height: '50px' }} />
+
         <Player
           accessToken={accessToken}
           trackUris={currPlaylist}
@@ -249,6 +280,8 @@ export default function Genre({ accessToken, code }) {
           setCurrPlayingTrackInfo={setCurrPlayingTrackInfo}
           setIsPaused={setIsPaused}
         />
+
+        <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
       </Navbar>
 
     </Container>

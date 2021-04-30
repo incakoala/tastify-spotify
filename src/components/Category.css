@@ -8,9 +8,9 @@
   top: 0;
   left: 0;
 }
+
 .donut {
   position: absolute;
-  top: 100px;
   left: 80px; 
   max-width: 50%;
 }
@@ -25,6 +25,7 @@
   padding-bottom: 30px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-top: 20px;
 }
 
 .view-dropdown{
@@ -33,9 +34,9 @@
 }
 
 .info-text {
-  font-size: 40px;
+  font-size: 32px;
   letter-spacing: 0.2em;
-  width: 400px;
+  color: white;
 }
 
 .info-text-highlight {
@@ -51,10 +52,11 @@
 
 .footer-wrapper {
   padding-bottom: 0;
+  background-color: black;
 }
 
 .content-wrapper {
-  padding-bottom: 150px;
+  padding-bottom: 100px;
 }
 
 .dropdown-item {

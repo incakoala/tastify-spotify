@@ -6,14 +6,10 @@ import useAuth from "./components/useAuth"
 import Genre from "./components/Genre";
 import Artist from "./components/Artist";
 import AudioFeature from './components/AudioFeature'
-import TastifyPlaylist from './components/TastifyPlaylist'
+import Square from './components/rounded-black-square-shape.svg'
 
 import React, { useState, useEffect } from 'react'
-import { Container, Navbar } from "react-bootstrap"
-
-import Logo from "./logo.svg"
-
-// const code = new URLSearchParams(window.location.search).get('code');
+import { Navbar } from "react-bootstrap"
 
 export default function App() {
 
@@ -22,13 +18,12 @@ export default function App() {
   const [showGenre, setShowGenre] = useState(false)
   const [showArtist, setShowArtist] = useState(false)
   const [showAudioFeature, setShowAudioFeature] = useState(false)
-  const [showPlaylist, setShowPlaylist] = useState(false)
 
   useEffect(() => {
-    if (code && !showGenre && !showArtist && !showPlaylist & !showAudioFeature) {
+    if (code && !showGenre && !showArtist && !showAudioFeature) {
       setShowGenre(true)
     }
-  }, [code, setShowGenre, showGenre, showArtist, showPlaylist, showAudioFeature])
+  }, [code, setShowGenre, showGenre, showArtist, showAudioFeature])
 
   return (
     <div>
@@ -37,7 +32,6 @@ export default function App() {
           setShowGenre={setShowGenre}
           setShowArtist={setShowArtist}
           setShowAudioFeature={setShowAudioFeature}
-          setShowPlaylist={setShowPlaylist}
         />
         :
         <>
@@ -45,9 +39,11 @@ export default function App() {
             <div className="home-text"><span style={{ fontSize: '80px' }}>TASTIFY </span><br></br>"Dicover Your Music Taste"</div>
             <Login />
           </div>
-          <Navbar className="my-footer" fixed="bottom">
+          <Navbar className="footer-wrapper" fixed="bottom">
+            <img src={Square} style={{ width: '210px', height: '50px' }} />
+
             <div style={{ marginLeft: 'auto', marginRight: '0' }} >
-              <a class='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
+              <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
             </div>
           </Navbar>
         </>
