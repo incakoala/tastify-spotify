@@ -14,7 +14,7 @@ app.post('/login', (req, res) => {
   const code = req.body.code
 
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://tastify-spotify.herokuapp.com",
+    redirectUri: "https://tastify-spotify.herokuapp.com",
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET
   })
@@ -36,7 +36,7 @@ app.post('/login', (req, res) => {
 app.post('/refresh', (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: "http://tastify-spotify.herokuapp.com",
+    redirectUri: "https://tastify-spotify.herokuapp.com",
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken
