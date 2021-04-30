@@ -2,9 +2,10 @@ import React from 'react'
 import '../App.css'
 import { Container } from "react-bootstrap"
 
-const r_uri = 'http://localhost:3000' || 'https://tastify-spotify.herokuapp.com'
+var DEV = process.env.DEV ? true : false;
+var redirect_uri = DEV ? 'http://localhost:3000' : 'https://tastify-spotify.herokuapp.com'
 
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=b2d89a8ed2a5494196384e30483c4706&response_type=code&redirect_uri=${r_uri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played%20user-top-read%20user-read-playback-position`
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=b2d89a8ed2a5494196384e30483c4706&response_type=code&redirect_uri=${redirect_uri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played%20user-top-read%20user-read-playback-position`
 
 export default function Login() {
   return (
