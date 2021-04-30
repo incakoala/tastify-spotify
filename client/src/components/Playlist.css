@@ -3,11 +3,11 @@
   max-height:350px;
   overflow-y: scroll;
   border-radius: 30px;
-  background: #C4C4C4;
+  background: #e3e3e3;
 }
 
 .row-selected {
-  background-color: #939393;
+  background-color: #cbcbcb;
 }
 
 .table-body {

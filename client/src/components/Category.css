@@ -73,3 +73,30 @@
   color:black!important;
   font-weight: bold!important;
 }
+
+.nav-tabs{
+  padding-bottom: 45px!important;
+  border-bottom: none!important;
+}
+
+.tab {
+  border-bottom: 2px white solid;
+}
+
+.card {
+  background-color: transparent;
+}
+
+.tab-item {
+  color: white;
+  font-weight: bold;
+}
+
+.tab-item:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.tab-item:active {
+  color: black!important;
+}

@@ -5,7 +5,6 @@ import Player from './Player'
 import Playlist from './Playlist'
 import Donut from './Donut'
 import './Category.css'
-import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID
@@ -270,7 +269,7 @@ export default function Genre({ accessToken, code }) {
       </Row>
 
       <Navbar className="footer-wrapper" fixed="bottom">
-        <img src={Square} style={{ width: '210px', height: '50px' }} />
+        <p className='footer-text' style={{ color: 'black' }}>Made by incakoala</p>
 
         <Player
           accessToken={accessToken}

@@ -6,7 +6,6 @@ import useAuth from "./components/useAuth"
 import Genre from "./components/Genre";
 import Artist from "./components/Artist";
 import AudioFeature from './components/AudioFeature'
-import Square from './components/rounded-black-square-shape.svg'
 
 import React, { useState, useEffect } from 'react'
 import { Navbar } from "react-bootstrap"
@@ -41,9 +40,7 @@ export default function App() {
             </div>
           </div>
           <Navbar className="footer-wrapper" fixed="bottom">
-            <img src={Square} style={{ width: '210px', height: '50px' }} />
-
-            <div style={{ marginLeft: 'auto', marginRight: '0' }} >
+            <div style={{ marginLeft: 'auto', marginRight: '0', height: '50px' }} >
               <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
             </div>
           </Navbar>

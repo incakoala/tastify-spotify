@@ -3,7 +3,6 @@ import { Container, Row, Col, Card, Nav, Navbar } from 'react-bootstrap'
 import SpotifyWebApi from "spotify-web-api-node"
 import './AudioFeature.css'
 import Radar from './Radar'
-import Square from './rounded-black-square-shape.svg'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID
@@ -208,9 +207,7 @@ export default function AudioFeature({ accessToken, code }) {
       </Row>
 
       <Navbar className="footer-wrapper" fixed="bottom">
-        <img src={Square} style={{ width: '210px', height: '50px' }} />
-
-        <div style={{ marginLeft: 'auto', marginRight: '0' }} >
+        <div style={{ marginLeft: 'auto', marginRight: '0', height: '50px'}} >
           <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
         </div>
       </Navbar>

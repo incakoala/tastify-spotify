@@ -48,7 +48,7 @@ export default class Donut extends React.Component {
           externalEventMutations={this.state.externalMutations}
           data={this.props.topCategories.slice(0, numberOfItems)}
           colorScale={["#4A6A9B", "#8280A1", "#887A89", "#A9C1C1"]}
-          padAngle={({ datum }) => datum.y}
+          padAngle={({ datum }) => datum.y / 3}
           innerRadius={120}
           labelRadius={({ innerRadius }) => innerRadius + 35}
           labels={({ datum }) => datum.x.length > 10 ? `${datum.x.slice(0, 10)}..` : datum.x}
