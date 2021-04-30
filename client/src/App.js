@@ -36,8 +36,9 @@ export default function App() {
         :
         <>
           <div className='background-img'>
-            <div className="home-text"><span style={{ fontSize: '80px' }}>TASTIFY </span><br></br>"Dicover Your Music Taste"</div>
-            <Login />
+            <div className="home-text"><span style={{ fontSize: '80px' }}>
+              TASTIFY </span><br></br>Dicover Your Music Taste<br></br><Login />
+            </div>
           </div>
           <Navbar className="footer-wrapper" fixed="bottom">
             <img src={Square} style={{ width: '210px', height: '50px' }} />

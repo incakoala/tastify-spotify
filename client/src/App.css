@@ -103,6 +103,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-text {
@@ -116,27 +119,7 @@ body {
   cursor: pointer;
 }
 
-.login-text:hover {
-  position: relative;
-  -webkit-animation: moving 2s;
-  animation: moving 2s;
-}
-
-@-webkit-keyframes moving {
-  from {left: 0px;}
-  to {left: 50px;}
-}
-
-@keyframes moving {
-  from {left: 0px;}
-  to {left: 50px;}
-}
-
 .home-text {
-  position: absolute; 
-  top: 200px; 
-  left: 0; 
-  width: 100%; 
   color:#e6d5d5;
   font-size: 50px;
   font-family: 'Staatliches';
