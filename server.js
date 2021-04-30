@@ -10,9 +10,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-let redirect_uri =
-  process.env.REDIRECT_URI ||
-  'http://localhost:3000'
+let redirect_uri = process.env.REDIRECT_URI
 
 app.post('/login', (req, res) => {
   const code = req.body.code
