@@ -1,5 +1,5 @@
-# Tastity 🎸🤘🎼🎵
-**A music taste discovery tool built with the [Spotify API](https://developer.spotify.com/discover/).**
+# Tastify 🎸🤘🎼🎵
+**A music taste discovery tool built with the [Spotify API](https://developer.spotify.com/discover/)**
 
 **[Live Website](https://tastify-spotify.herokuapp.com/)**
 
@@ -33,7 +33,7 @@ Once both the servers are started, the application can be accessed at http://loc
 * Express
 * Victory Charts
 
-![webapi](https://res.cloudinary.com/devjzx2qq/image/upload/v1619824771/Web_API_endpoints_uysz5w.svg)
+![webapi](https://res.cloudinary.com/devjzx2qq/image/upload/v1619827150/Web_API_endpoints_xp8pq0.svg)
 
 ## Screenshots
 ![screenshot1](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825281/Screen_Shot_2021-04-30_at_4.25.05_PM_vhvbva.png)
