@@ -45,4 +45,6 @@ Once both servers are started, the application can be accessed at http://localho
 ![screenshot1](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825281/Screen_Shot_2021-04-30_at_4.25.05_PM_vhvbva.png)
 ![screenshot2](https://res.cloudinary.com/devjzx2qq/image/upload/v1619825281/Screen_Shot_2021-04-30_at_4.26.02_PM_gvjpao.png)
 
-**Copyright © [incakoala](https://github.com/incakoala)**
+<br>
+
+**© 2021 [incakoala](https://github.com/incakoala)**
