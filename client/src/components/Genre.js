@@ -9,7 +9,7 @@ import './Category.css'
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID
 })
-export default function Genre({ accessToken, code }) {
+export default function Genre({ accessToken }) {
   const [topCategories, setTopCategories] = useState([])
   const [clickedGenre, setClickedGenre] = useState({})
   const [currPlaylist, setCurrPlaylist] = useState([])

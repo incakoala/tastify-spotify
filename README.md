@@ -29,7 +29,7 @@ Start the React client
 3. npm start
 ```
 
-Once both the servers are started, the application can be accessed at http://localhost:3000/
+Once both servers are started, the application can be accessed at http://localhost:3000/
 
 ## Tech Stack
 * Spotify Web API (+ [wrapper](https://github.com/thelinmichael/spotify-web-api-node))

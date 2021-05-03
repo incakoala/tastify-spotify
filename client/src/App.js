@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import React, { useState, useEffect } from 'react'
+import { Navbar } from "react-bootstrap"
 import Login from "./components/Login";
 import Navigation from "./components/Navigation"
 import useAuth from "./components/useAuth"
@@ -7,11 +9,7 @@ import Genre from "./components/Genre";
 import Artist from "./components/Artist";
 import AudioFeature from './components/AudioFeature'
 
-import React, { useState, useEffect } from 'react'
-import { Navbar } from "react-bootstrap"
-
 export default function App() {
-
   const [code, setCode] = useState(new URLSearchParams(window.location.search).get('code'))
   const accessToken = useAuth(code)
   const [showGenre, setShowGenre] = useState(false)
@@ -48,15 +46,15 @@ export default function App() {
       }
 
       {showGenre === true ?
-        <Genre code={code} accessToken={accessToken} />
+        <Genre accessToken={accessToken} />
         : <> </>
       }
       {showArtist === true ?
-        <Artist code={code} accessToken={accessToken} />
+        <Artist accessToken={accessToken} />
         : <> </>
       }
       {showAudioFeature === true ?
-        <AudioFeature code={code} accessToken={accessToken} />
+        <AudioFeature accessToken={accessToken} />
         : <> </>
       }
     </div>

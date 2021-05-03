@@ -7,7 +7,7 @@ import Radar from './Radar'
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID
 })
-export default function AudioFeature({ accessToken, code }) {
+export default function AudioFeature({ accessToken }) {
   const [topTracks, setTopTracks] = useState([])
   const [audioFeatures, setAudioFeatures] = useState({})
   const [timeRange, setTimeRange] = useState('long_term')
@@ -126,6 +126,7 @@ export default function AudioFeature({ accessToken, code }) {
             </Card.Body>
           </Card>
 
+          <span style={{ color: '#cbcbcb', textDecoration: 'underline' }}>Credit: Spotify</span>
         </Col>
 
         <Col xl={{ span: 5 }} className="radar-wrapper">
@@ -172,8 +173,6 @@ export default function AudioFeature({ accessToken, code }) {
             :
             <> </>
           }
-
-
         </Col>
 
         <Col xl={{ span: 3 }} >
@@ -207,7 +206,7 @@ export default function AudioFeature({ accessToken, code }) {
       </Row>
 
       <Navbar className="footer-wrapper" fixed="bottom">
-        <div style={{ marginLeft: 'auto', marginRight: '0', height: '50px'}} >
+        <div style={{ marginLeft: 'auto', marginRight: '0', height: '50px' }} >
           <a className='footer-text' href="https://github.com/incakoala">Made by incakoala</a>
         </div>
       </Navbar>
