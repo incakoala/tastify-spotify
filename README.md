@@ -1,5 +1,5 @@
 # Tastify 🎸🤘🎼🎵
-**A music taste discovery tool built with the [Spotify API](https://developer.spotify.com/discover/)**
+**A music taste discovery tool built with the [Spotify APIs](https://developer.spotify.com/discover/)**
 
 <br>
 
@@ -37,7 +37,7 @@ Once both servers are started, the application can be accessed at http://localho
 * React
 * Node
 * Express
-* Victory Charts
+* Victory/D3.js
 
 ![webapi](https://res.cloudinary.com/devjzx2qq/image/upload/v1619890447/Web_API_endpoints_o4mcam.png)
 
