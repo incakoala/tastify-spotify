@@ -47,4 +47,6 @@ Once both servers are started, the application can be accessed at http://localho
 
 <br>
 
+Homepage background image © vexels.com
+
 **© 2021 [incakoala](https://github.com/incakoala)**
