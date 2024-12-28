@@ -3,7 +3,7 @@
 
 <br>
 
-**[Live Website](https://tastify-spotify.herokuapp.com/)**
+**[Live Website](https://tastify-spotify-74b017a66560.herokuapp.com/)**
 
 <br>
 
