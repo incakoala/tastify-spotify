@@ -3,10 +3,6 @@
 
 <br>
 
-**[Live Website](https://tastify-spotify-74b017a66560.herokuapp.com/)**
-
-<br>
-
 At the minimum, you must have a Spotify account with a listening history to view the data points. To utilize all of the features, [Spotify Premium](https://www.spotify.com/us/premium/) and a [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) are required.
 
 <br>

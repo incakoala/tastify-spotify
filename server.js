@@ -1,5 +1,6 @@
+// Local development API server (proxied by the React dev server).
+// In production these routes run as Netlify Functions (netlify/functions/).
 const port = process.env.PORT || 3001
-const path = require("path")
 require('dotenv').config()
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
@@ -8,10 +9,7 @@ const app = express();
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.join(__dirname, "client", "build")))
-
-var PROD = process.env.NODE_ENV === 'production' ? true : false;
-var redirect_uri = process.env.REDIRECT_URI || (PROD ? 'https://tastify-spotify-74b017a66560.herokuapp.com' : 'http://127.0.0.1:3000');
+var redirect_uri = process.env.REDIRECT_URI || 'http://127.0.0.1:3000';
 
 app.post('/login', (req, res) => {
   const code = req.body.code
@@ -49,8 +47,8 @@ app.post('/refresh', (req, res) => {
     .refreshAccessToken()
     .then((data) => {
       res.json({
-        accessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn
+        accessToken: data.body.access_token,
+        expiresIn: data.body.expires_in
       })
     })
     .catch(() => {
@@ -58,7 +56,4 @@ app.post('/refresh', (req, res) => {
     })
 })
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
 app.listen(port)

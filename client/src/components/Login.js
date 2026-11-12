@@ -2,7 +2,7 @@ import React from 'react'
 import '../App.css'
 
 // Spotify redirects back to whatever domain the app is served from
-// (Heroku, Netlify, localhost...). That URL must be whitelisted in the
+// (Netlify in production, 127.0.0.1 locally). That URL must be whitelisted in the
 // Spotify developer dashboard.
 var redirect_uri = process.env.REACT_APP_REDIRECT_URI || window.location.origin;
 
