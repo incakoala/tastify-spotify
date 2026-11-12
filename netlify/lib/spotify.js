@@ -4,7 +4,7 @@ const TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
 function redirectUri() {
   // REDIRECT_URI overrides; otherwise Netlify's URL (the site's primary URL).
-  return process.env.REDIRECT_URI || process.env.URL || 'http://localhost:3000'
+  return process.env.REDIRECT_URI || process.env.URL || 'http://127.0.0.1:3000'
 }
 
 async function requestToken(params) {

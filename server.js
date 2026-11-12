@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 var PROD = process.env.NODE_ENV === 'production' ? true : false;
-var redirect_uri = process.env.REDIRECT_URI || (PROD ? 'https://tastify-spotify-74b017a66560.herokuapp.com' : 'http://localhost:3000');
+var redirect_uri = process.env.REDIRECT_URI || (PROD ? 'https://tastify-spotify-74b017a66560.herokuapp.com' : 'http://127.0.0.1:3000');
 
 app.post('/login', (req, res) => {
   const code = req.body.code

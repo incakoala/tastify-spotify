@@ -29,7 +29,7 @@ Start the React client
 3. npm start
 ```
 
-Once both servers are started, the application can be accessed at http://localhost:3000/
+Once both servers are started, open the app at http://127.0.0.1:3000/ (not `localhost`). Spotify only accepts insecure `http` redirect URIs for loopback IP addresses, so add `http://127.0.0.1:3000` as a Redirect URI in your Spotify app.
 
 ## Deploying to Netlify
 The repo includes a `netlify.toml`. The React client is deployed as a static site, and the Express `/login` and `/refresh` routes run as Netlify Functions (`netlify/functions/`).
