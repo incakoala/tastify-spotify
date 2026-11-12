@@ -1,0 +1,32 @@
+# Netlify deployment config
+# The React client is built as a static site; the Express /login and /refresh
+# routes are replaced by Netlify Functions in netlify/functions/.
+
+[build]
+  command   = "cd client && npm ci && CI= npm run build"
+  publish   = "client/build"
+  functions = "netlify/functions"
+
+[build.environment]
+  # react-scripts 4 does not build on Node 17+
+  NODE_VERSION = "16"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Keep the client's existing axios.post('/login') and ('/refresh') calls working
+[[redirects]]
+  from   = "/login"
+  to     = "/.netlify/functions/login"
+  status = 200
+
+[[redirects]]
+  from   = "/refresh"
+  to     = "/.netlify/functions/refresh"
+  status = 200
+
+# Single-page app fallback (replaces Express's app.get("*"))
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
