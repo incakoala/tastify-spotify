@@ -12,16 +12,22 @@ export default function Player({
     (elem) => elem.trackUri
   )
 
-  const setTrackInfo = (uri, playlist) => {
-    const temp = [...Array(playlist.length)]
-    let res = {}
-    temp.map((e, i) => {
-      if (playlist[i].trackUri === uri) {
-        res = playlist[i]
-      }
-      return true
+  // Find the playing track in the playlist to get its large album artwork.
+  // Spotify can play a regional substitute with a different URI ("track
+  // relinking"), so fall back to matching by name, then to the player's own
+  // (smaller) artwork, so the record never shows up blank.
+  const setTrackInfo = (track, playlist) => {
+    if (!track) {
+      setCurrPlayingTrackInfo({})
+      return
+    }
+    const match =
+      playlist.find((t) => t.trackUri === track.uri) ||
+      playlist.find((t) => t.track === track.name)
+    setCurrPlayingTrackInfo({
+      ...match,
+      albumUrl: (match && match.albumUrl) || track.image
     })
-    setCurrPlayingTrackInfo(res)
   }
 
   if (!accessToken) return null
@@ -35,12 +41,12 @@ export default function Player({
           if (state.isPlaying) {
             setIsPaused(false)
             setCurrPlayingTrack(state.track.uri)
-            setTrackInfo(state.track.uri, trackUris)
+            setTrackInfo(state.track, trackUris || [])
           }
           if (!state.isPlaying && state.progressMs === 0) {
             setIsPaused(false)
             setCurrPlayingTrack([])
-            setTrackInfo('', [])
+            setTrackInfo(null, [])
 
           }
           if (!state.isPlaying && state.progressMs !== 0) {
