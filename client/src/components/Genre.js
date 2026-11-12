@@ -5,6 +5,7 @@ import Player from './Player'
 import Playlist from './Playlist'
 import Donut from './Donut'
 import './Category.css'
+import { withRetry, mapWithConcurrency } from './spotifyRequest'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID
@@ -25,167 +26,73 @@ export default function Genre({ accessToken }) {
     spotifyApi.setAccessToken(accessToken)
   }, [accessToken])
 
+  // Top tracks with their first artist's genres, loaded once per login.
+  // Clicking a genre only filters this list, so it needs no extra requests.
+  const [tracksWithGenres, setTracksWithGenres] = useState([])
+
+  useEffect(() => {
+    if (!clickedGenre.genre) return
+    setCurrPlaylist(
+      tracksWithGenres.filter((t) => t.genres.includes(clickedGenre.genre))
+    )
+  }, [clickedGenre, tracksWithGenres])
+
+  // Get user's top tracks and top genres
   useEffect(() => {
     if (!accessToken) return
+    let cancelled = false
 
-    if (clickedGenre !== {} || clickedGenre !== "") getTopTracksFromGenre(clickedGenre.genre)
-  }, [accessToken, clickedGenre])
+    const load = async () => {
+      // Top tracks rarely change; one request is enough
+      const topTracks = await withRetry(() =>
+        spotifyApi.getMyTopTracks({ limit: 50, time_range: "long_term" })
+      )
+      const items = topTracks.body.items
+      setTotalTopSongs(items.length)
 
-
-  // Get user's top genres
-  useEffect(() => {
-    if (!accessToken) return
-
-    const getGenresFromArtists = (artists) => {
-      return artists
-        .map((artist) => artist)
-        .reduce(async (result, a) => {
-          const temp = await spotifyApi.getArtist(a.id)
-
-          if (temp) {
-            (await result).push(temp.body.genres)
-          }
-          return await result
-        }, [])
-    }
-
-    spotifyApi
-      // start by getting user's top tracks
-      .getMyTopTracks({ limit: 50, time_range: "long_term" })
-      // only take the first artist of a track
-      .then((data) => {
-        setTotalTopSongs(data.body.items.length)
-
-        return data.body.items.map((track) => {
-          return track.artists[0]
-        })
+      // Genres live on artists. Fetch each distinct artist once, a few at a
+      // time, instead of 50+ sequential requests per click.
+      const artistIds = [...new Set(items.map((t) => t.artists[0].id))]
+      const genresByArtist = {}
+      await mapWithConcurrency(artistIds, 5, async (id) => {
+        const res = await withRetry(() => spotifyApi.getArtist(id))
+        genresByArtist[id] = res.body.genres || []
       })
-      // need to query getArtist endpoint to get genres data
-      .then(async (artists) => {
-        return await getGenresFromArtists(artists)
-      })
-      // map genres' occurences
-      .then((genres) => {
-        return [].concat.apply([], genres)
-          .reduce((result, item) => {
-            const get = (k) => {
-              return result[k]
-            }
-            if (get(item) === undefined) {
-              result[item] = 1
-            }
-            else if (get(item) !== undefined) {
-              result[item] = result[item] + 1
-            }
-            return result
-          }, {})
-      })
-      // transform to {x: genre, y: numSongs} object so that VictoryChart
-      // can display the data
-      .then((topSongs) => {
-        return Object.keys(topSongs).slice(0, Object.keys(topSongs).length)
-          .reduce((result, item) => {
-            result.push({
-              x: item,
-              y: topSongs[item]
-            })
-            return result
-          }, [])
-          .sort((a, b) => {
-            return (a.y > b.y) ? -1 : (a.y === b.y) ? ((a.y > b.y) ? -1 : 1) : 1
-          })
-      })
-      // set final top genres
-      .then((finalTopGenres) => {
-        setTopCategories(finalTopGenres)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [accessToken])
+      if (cancelled) return
 
-  // Get user's top tracks from a genre
-  const getTopTracksFromGenre = (inputGenre) => {
-    const getArtistsData = (artistsAndTracksList) => {
-      return artistsAndTracksList
-        .map((at) => at)
-        .reduce(async (result, a) => {
-          const temp = await spotifyApi.getArtist(a.artist.id)
-
-          if (temp) {
-            (await result).push({
-              artist: temp,
-              track: a.track,
-              trackUri: a.trackUri,
-              trackDuration: a.trackDuration,
-              albumUrl: a.albumUrl
-            })
-          }
-          return await result
-
-        }, [])
-    }
-    spotifyApi
-      .getMyTopTracks({ limit: 50, time_range: "long_term" })
-      .then((data) => {
-        return data.body.items
-          .map((track) => track)
-          .reduce((result, item) => {
-            const largestAlbumImage = item.album.images.reduce(
-              (largest, image) => {
-                if (image.height > largest.height) return image
-                return largest
-              },
-              item.album.images[0]
-            )
-            const convertDuration = () => {
-              var minutes = Math.floor(item.duration_ms / 60000);
-              var seconds = ((item.duration_ms % 60000) / 1000).toFixed(0);
-              return minutes + ":" + (item.duration_ms < 10 ? '0' : '') + seconds;
-            }
-            result.push({
-              artist: item.artists[0],
-              track: item.name,
-              trackUri: item.uri,
-              trackDuration: convertDuration(),
-              albumUrl: largestAlbumImage.url
-            })
-            return result
-          }, [])
-      })
-      // need to query getArtist endpoint to get genres data
-      .then(async (artistsAndTracksList) => {
-        return await getArtistsData(artistsAndTracksList)
-      })
-      // update genres
-      .then((updatedArtistsAndTracksList) => {
-        return updatedArtistsAndTracksList
-          .map((item) => item)
-          .reduce((result, data) => {
-            result.push({
-              artist: data.artist.body.name,
-              genres: data.artist.body.genres,
-              track: data.track,
-              trackUri: data.trackUri,
-              trackDuration: data.trackDuration,
-              albumUrl: data.albumUrl
-            })
-            return result
-          }, [])
-      })
-      // set final playlist
-      .then((finalList) => {
-        return setCurrPlaylist(
-          finalList
-            .filter((g) => {
-              return g.genres.includes(inputGenre)
-            })
+      const list = items.map((item) => {
+        const largestAlbumImage = item.album.images.reduce(
+          (largest, image) => (image.height > largest.height ? image : largest),
+          item.album.images[0]
         )
+        const minutes = Math.floor(item.duration_ms / 60000)
+        const seconds = Math.floor((item.duration_ms % 60000) / 1000)
+        return {
+          artist: item.artists[0].name,
+          genres: genresByArtist[item.artists[0].id] || [],
+          track: item.name,
+          trackUri: item.uri,
+          trackDuration: minutes + ":" + String(seconds).padStart(2, '0'),
+          albumUrl: largestAlbumImage ? largestAlbumImage.url : undefined
+        }
       })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+      setTracksWithGenres(list)
+
+      // Count how many top songs fall into each genre
+      const counts = {}
+      list.forEach((t) => t.genres.forEach((g) => {
+        counts[g] = (counts[g] || 0) + 1
+      }))
+      setTopCategories(
+        Object.keys(counts)
+          .map((g) => ({ x: g, y: counts[g] }))
+          .sort((a, b) => b.y - a.y)
+      )
+    }
+
+    load().catch((err) => console.log(err))
+    return () => { cancelled = true }
+  }, [accessToken])
 
   return (
     <Container fluid>
